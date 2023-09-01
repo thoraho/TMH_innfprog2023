@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            font-family: 'helvetica neue', sans-serif;
+            font-weight: 600;
+            font-size: 100px;
+            width: fit-content;
+        }
+        #average{
+            margin: .5em;
+            padding: .5em;
+            border: 5px solid black;
+            border-radius: 10%;
+        }
+    </style>
+</head>
+<body>
+    <p id="average"></p>
+    <script>
+        const ageFather = 37
+        const ageMother = 32
+        const ageDaughter = 7
+        const ageSon = 2
+        const total = ageMother + ageFather + ageDaughter + ageSon
+        const sum = total/4
+
+
+
+        document.getElementById("average").innerHTML = sum
+        console.log(utskrift)
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Errors</title>
+    <style>
+        *{
+            margin-top: 0;
+            background-color: darkslategray;
+            color: antiquewhite;
+            font-family: 'helvetica neue', sans-serif;
+            font-weight: 600;
+            font-size: 100px;
+        }
+    </style>
+</head>
+<body>
+    <p id="melding"></p>
+    <script>
+        const user_name = "Thor"
+        const user_birthyear = 1990
+        const age = 2023 - user_birthyear
+        const utskrift = "Hei, " + user_name + "(" + age + " år)"
+        
+        document.getElementById("melding").innerHTML = utskrift;w
+        console.log
+    </script>
+</body>
+</html>

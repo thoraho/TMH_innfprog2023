@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klokke</title>
+    <style>
+        *{
+            font-family: 'helvetica neue', sans-serif;
+            background-color: tomato;
+        }
+
+        header{
+            display: flex;
+            justify-content: center;
+            font-size: 50px;
+            color: #fff;
+        }
+        #txt{
+            display: flex;
+            justify-content: center;
+            font-size: 200px;
+            font-weight: 600;
+            color: #dedede;
+            
+        }
+
+
+    </style>
+</head>
+<header>
+    <h1>Javascript klokke</h1>
+
+</header>
+<body onload="startTime()">
+
+    <div id="txt"></div>
+
+    <script>
+        function startTime() {
+          const today = new Date();
+          let h = today.getHours();
+          let m = today.getMinutes();
+          let s = today.getSeconds();
+          m = checkTime(m);
+          s = checkTime(s);
+          document.getElementById('txt').innerHTML =  h + ":" + m + ":" + s;
+          setTimeout(startTime, 1000);
+        }
+         
+        function checkTime(i) {
+          if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+          return i;
+        }
+        </script>
+        
+</body>
+</html>

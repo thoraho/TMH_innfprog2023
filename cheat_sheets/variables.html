@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Variables - Cheat Sheet</title>
+    <style>
+        *{
+            background-color: teal;
+            font-family: 'helvetica neue', sans-serif;
+
+        }
+    h1{
+        font-family: 'helvetica neue', sans-serif;
+        font-size: 50px;
+        font-weight: 600;
+        background-color: #000;
+        display: flex;
+        position: relative;
+        justify-content: right;
+        max-width: fit-content;
+        border-radius: 35px;
+        color: #fff;
+        padding: .5em;
+    }    
+
+    p{
+        background-color: #000;
+        width: fit-content;
+        margin: 0;
+        padding: 0;
+    }
+
+    article{
+        position: absolute;
+        left: 2em; 
+        width: fit-content;
+        background-color: #000;
+        color: #fff;
+        padding: 2em;
+        border-radius: 15px;
+    }
+    </style>
 </head>
 
+<header>
+    <h1 id="headline">Variabler</h1>
+</header>
+
 <body>
-    
+    <article>
+    <p></p>
+    <p>Her lærer vi litt om variabler</p>
+    <p>Variabler kan tenkes på som gaver</p>
+    <p>Gaver vi gir, vet vi hva inneholder</p>
+    <p>Gaver vi får, må vi pakke opp</p>
+
+    <a href="../ovingsoppgaver/variabler/errors.html">Cheat Sheet</a>
+</article>
+
+        <script>
+            const newHeadline = "Variables Cheat Sheet"
+            console.log(newHeadline)
+            //Finn HTML-element med id="headline" og bytt ut verdien
+            document.getElementById("headline").innerHTML = newHeadline
+            
+            const newStatement = "Variabler er gøy!"
+            document.querySelector("p").innerHTML = newStatement
+        </script>
 </body>
 </html>
