@@ -40,11 +40,11 @@
         Kommenter hver feil du finner! 
     -->
     <script>
-        const examtype = "error"; //la til "fnutter" og semikolon
-        const studenttype = "hero"; //byttet fra kolon til erlik
+        const examtype = "error"; //la til "fnutter" og semikolon (vet nå at det ikke er nødvendig med semikolon, men jeg syns det ser ca 76% mer oversiktelig ut.)
+        const studenttype = "hero"; //byttet fra kolon til erlik, byttet fra kolon til semikolon
 
         const maxScore = 1337;
-        let currentScore = 330; //endret fra "const" til "let" for å la verdien endres seinere i koden
+        let currentScore = 330; //endret fra "const" til "let" for å la verdien på variabelen endres seinere i koden
 
         const addedScore = currentScore * 4; //fjernet et erlik-tegn mellom addedScore og currentScore, endret avslutning fra kolon til semikolon
         const missingMaxScore = 17; //fjernet "fnutter" rundt 17 for å endre datatype til number
@@ -52,7 +52,7 @@
 
         const green = "0, 128, 0";
 
-        if (maxScore === 1337) {
+        if (maxScore === 1337) { // nested if-testene 
             const successImage = `${examtype}-${studenttype}`; //la til dollartegn ($) før {studenttype}
         
 
@@ -60,7 +60,7 @@
             document.getElementById("background").style.backgroundImage = "url(" + successImage + ".jpg)";//Rettet skrivefeil "getElementByIDE" til "getElementById"
             document.getElementById("mainframe").style.backgroundColor = "rgb(" + green + ")"; //rettet skrivefeil "greeen" til "green", endret fra komma "," til punktum (.) mellom (mainframe) og style
         }
-    }//nested ifs
+    }
     </script>
 </body>
 

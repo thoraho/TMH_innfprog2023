@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="antalldyr"></p>
+    <p id="alledyr"></p>
+    <p id="utskrift"></p>
+    <script>
+        const listeDyr = ["Bjørn", "Katt", "Ulv", "Hund", "Grevling", "Høne", "Hval", "Ku", "Okse", "Esel"]
+
+        const listLength = listeDyr.length
+
+        const dyrUt = `Her er det listet opp noen dyr, for eksempel ${listeDyr[2]} og ${listeDyr[6]}`
+
+        document.getElementById("antalldyr").innerHTML = "Antall dyr: " + listLength
+        document.getElementById("utskrift").innerHTML = dyrUt
+        document.getElementById("alledyr").innerHTML = listeDyr
+    </script>
+</body>
+</html>
