@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="test"></div>
+    <script>
+        const register = [
+            {
+                name: "Thor Andreas Murtnes-Hatlestad",
+                address: "Tistedalsgata 4",
+                phone: "48365291"
+            },
+            {
+                name: "Tora Murtnes-Hatlestad",
+                address: "Tistedalsgata 4",
+                phone: "46932966"
+            }
+        ]
+
+        let registerHTML = ""
+
+        register.map((person)=>{
+            registerHTML += `
+            <h2>${person.name}</h2>
+            <p>Address: ${person.address}</p> 
+            <p>Phone: ${person.phone}</p>
+            `
+        })
+
+        console.log(registerHTML)
+
+        document.getElementById("test").innerHTML = registerHTML
+    </script>
+</body>
+</html>l
