@@ -7,6 +7,7 @@
 </head>
 <body>
     <div id="test"></div>
+    <p>Film med index 3: <span id="movieThree"></span></p>
     <script>
         const register = [
             {
@@ -34,6 +35,53 @@
         console.log(registerHTML)
 
         document.getElementById("test").innerHTML = registerHTML
+
+        const movieArchive = [
+            "Frozen", "Scarface", "Matrix", "Inception", "Oppenheimer", "Barbie"
+        ]
+
+        
+
+        //Skrive ut film med index 3 til nettsiden
+        const movieIndex = 3
+        
+        //push Gladiator
+        movieArchive.push("Gladiator")
+
+        //splice Bambi
+        movieArchive.splice(1,0, "Bambi")
+
+        //Slette film
+        movieArchive.splice(4, 1)
+
+        //Sjekke om en verdi finnes i arrayen:
+        const movieExists = movieArchive.includes("Frozen")
+
+        //Sortere array alfabetisk A - Å
+        movieArchive.sort()
+
+        //Sortere array alfabetisk Å - A NB!! .sort() FØRST!
+        movieArchive.reverse()
+        
+        //sortere tallverdier
+        const numberSort = [99, 2, 45, 32, 10,  78]
+        //Synkende rekkefølge
+        numberSort.sort(function(a, b){return a - b})
+        //Stigende rekkefølge
+        const numberSortRev = [99, 2, 45, 32, 10,  78]
+        numberSortRev.sort(function(a, b){return b - a})
+
+    
+
+        
+        
+        //Teste array
+        console.log(numberSort)
+        console.log(numberSortRev)
+        console.log("Frozen finnes? " + movieExists)
+        console.log(movieArchive)
+        document.getElementById("movieThree").innerHTML = movieArchive[movieIndex]
+        
     </script>
 </body>
-</html>l
+</html>
