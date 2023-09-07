@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="betinget"></p>
+<script>
+    const navn = "Thor Andreas";
+    let utskrift = ""
+
+    if( navn === "Thor Andreas"){
+        utskrift = `Mitt navn er ${navn} Murtnes-Hatlestad`;
+    }
+    else{
+        utskrift = `Mitt navn er ikke ${navn} Murtnes-Hatlestad`;
+    }
+
+    document.getElementById("betinget").innerHTML = utskrift
+</script>
+</body>
+</html>

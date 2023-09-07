@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="utskrift"></p>
+    <script>
+        const ITF19019_grade = "A"
+        const ITF10511_grade = "F"
+
+        let ITF19019_passed = ""
+        let ITF10511_passed = ""
+
+        if(ITF19019_grade === "A"){
+            ITF19019_passed = true
+        } else{
+            ITF19019_passed = false
+        }
+
+        if(ITF10511_grade == "A"){
+            ITF10511_passed = true
+        } else{
+            ITF10511_passed = false
+        }
+
+        console.log(ITF19019_passed)
+        console.log(ITF10511_passed)
+
+    </script>
+</body>
+</html>

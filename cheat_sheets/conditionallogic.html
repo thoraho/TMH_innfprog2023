@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betinget logikk</title>
+</head>
+<body>
+    <p id="utskrift"></p>
+    <script>
+        const name = "Göran"
+        const age = 18
+        const passedTheory = true
+        const passedPractical = true
+
+        let message = "Resultat: "
+
+        if(age >= 18 && passedTheory === true && passedPractical === true){
+            message += "Personen er klarert for bilkjøring."
+        } else{
+            message += "Personen er IKKE klarert for bilkjøring"
+        }
+
+        console.log(message)
+
+        document.getElementById("utskrift").innerHTML = message
+    </script>
+</body>
+</html>

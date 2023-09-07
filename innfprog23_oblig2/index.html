@@ -28,8 +28,10 @@
             ]},
 
             {menuheader: "HTML resources", menulinks: [
-                {url: "https://www.w3schools.com/html/default.asp", menutext: "W3Schools"},
-                {url: "https://validator.w3.org/", menutext: "W3 Validator"}
+                {url: "https://www.w3schools.com/html/default.asp", 
+                menutext: "W3Schools"},
+                {url: "https://validator.w3.org/", 
+                menutext: "W3 Validator"}
             ]},
 
             {menuheader: "CSS resources", menulinks: [
@@ -66,17 +68,19 @@
         //TODO: Skal ikke starte som en tom streng, må inneholde noe HTML for å møte oppgaveteksten...
         let menuHTML = `<li><a href="index.html">Home</a></li>`
        
-
         //Gå gjennom første nivå av menupoints-array
         //TODO: Forbered HTML med overskrift og listestart
         menuPoints.map((category) => {
             menuHTML += `
             <h2>${category.menuheader}</h2>
-            <li><a href="${category.menulinks[0].url}">${category.menulinks[0].menutext}</a></li>
             <li><a href="${category.menulinks[1].url}">${category.menulinks[1].menutext}</a></li>
-
             `
         })
+
+    
+
+
+        console.log(menuPoints)
 
 
 
