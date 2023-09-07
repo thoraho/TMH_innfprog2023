@@ -68,13 +68,13 @@
        
         //Gå gjennom første nivå av menupoints-array
         //TODO: Forbered HTML med overskrift og listestart
+
         menuPoints.map((category) => {
             menuHTML += `
             <h2>${category.menuheader}</h2>
             <ul>
                 <li><a href="${category.menulinks[0].url}">${category.menulinks[0].menutext}</a></li>
                 <li><a href="${category.menulinks[1].url}">${category.menulinks[1].menutext}</a></li>
-
             </ul>
             `
         })

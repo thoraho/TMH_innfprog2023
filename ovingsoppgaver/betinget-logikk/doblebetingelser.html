@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>if4</title>
 </head>
 <body>
     <p id="utskrift"></p>
     <script>
-        const ITF19019_grade = "A"
-        const ITF10511_grade = "F"
+        let ITF19019_grade = "A"
+        let ITF10511_grade = "F"
 
-        let ITF19019_passed = ""
-        let ITF10511_passed = ""
+        const ITF19019_passed = ITF19019_grade === "F" ? false : true
+        const ITF10511_passed = ITF10511_grade === "F" ? false : true
 
-        if(ITF19019_grade === "A"){
-            ITF19019_passed = true
-        } else{
-            ITF19019_passed = false
+
+        let countPassed = 0
+
+        if(ITF19019_passed === true){
+           countPassed += 1
         }
+        //iftest med ternary operator
+        ITF10511_passed ? countPassed++ : null;
 
-        if(ITF10511_grade == "A"){
-            ITF10511_passed = true
-        } else{
-            ITF10511_passed = false
-        }
+        let printText = `Du har bestått ${countPassed} av 2 kurs`
 
-        console.log(ITF19019_passed)
-        console.log(ITF10511_passed)
+        document.getElementById("utskrift").innerHTML = printText
 
+
+
+console.log(ITF19019_passed)
+console.log(ITF10511_passed)
+console.log(countPassed)
     </script>
 </body>
 </html>
