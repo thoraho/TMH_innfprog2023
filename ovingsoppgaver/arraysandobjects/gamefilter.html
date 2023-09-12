@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>iOS games</h1>
+    <ul id="filter"></ul>
+
+    <script>
+        const games = [
+            {
+                title: "Angry Birds",
+                platforms: ["iOS", "Android"]
+            },
+            {
+                title: "Nongram",
+                platforms: ["Android"]
+            },
+            {
+                title: "Plants vs Zombies",
+                platforms: ["iOS", "Android", "Windows"]
+            },
+            {
+                title: "Pinball",
+                platforms: ["Windows", "Android"]
+            },
+            {
+                title: "Planet Zoo",
+                platforms: ["Windows", "MacOS"]
+            },
+            {
+                title: "Woordle",
+                platforms: ["iOS", "MacOS"]
+            }
+        ]
+
+
+        //filtrer ut spill tilgjengelig for iOS i ny array
+
+        const iosGames = games.filter(
+            (iOS) => iOS.platforms.includes("iOS")
+            )
+
+            console.log(iosGames)
+
+            document.getElementById("filter").innerHTML = iosGames.map((game) => `<li>${game.title}</li>`).join('')
+    </script>
+</body>
+</html>
