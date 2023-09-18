@@ -11,13 +11,20 @@
     <button id="sendord">Lagre</button>
 
     <script>
-        document.getElementById("sendord").addEventListener("click", printName)
+        const btn = document.getElementById("sendord")
+        const printWord = document.getElementById("ord")
 
-        function printWord(){
-            const wordInputValue = document.getElementById("brukerord").value
+        let wordRegister = ""
 
-            console.log(nameInputValue)
+        btn.addEventListener("click", registerWord)
+
+        function registerWord(){
+            const regWrd = document.getElementById("brukerord").value
         }
+
+        console.log(regWrd)
+
+
     </script>
 </body>
 </html>
