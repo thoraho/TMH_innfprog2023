@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown While
+    </title>
+</head>
+<body>
+    <ul id="nedtelling"></ul>
+    <script>
+        
+        let teller = 10; 
+
+        while(teller >= 0){
+            document.getElementById("nedtelling").innerHTML += `<li>${teller === 0 ? "We have lift-off" : teller}</li>`
+            console.log(teller)
+            teller = teller -1
+            
+        }
+
+        
+    </script>
+</body>
+</html>

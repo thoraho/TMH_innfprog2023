@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For-løkker</title>
+</head>
+<body>
+
+<ul id="nedtelling"></ul>
+    <script>
+        let htmlString = ""
+
+        for(let teller = 10; teller >= 0; teller --) {
+            htmlString += `<li>${teller === 0 ? "We have lift-off" : teller}</li>`
+            console.log(htmlString)
+
+
+        }
+
+            document.getElementById("nedtelling").innerHTML = htmlString
+    </script>
+</body>
+</html>

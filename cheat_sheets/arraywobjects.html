@@ -13,7 +13,7 @@
             width: 90%; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between;
         }
 
-        article{width: 31%; background-color: white; border: 1px solid #ccc;}
+        article{width: 31%; height: fit-content; background-color: white; border: 1px solid #ccc; margin-bottom: 1em;}
 
         article img{
             width: 100%; height: auto;
@@ -25,9 +25,10 @@
 </head>
 <body>
     <h1>Photo gallery</h1>
-    <section id="gallery">
+    <section id="gallery"></section>
 
-    </section>
+    <h2>Nature</h2>
+    <section id="categoryimg"></section>
 
     <p id="test"></p>
 
@@ -74,6 +75,23 @@
             <p>Photographer:<br>${photo.photographer}</p>
         </article>`
         )
+
+        
+        const categoryImages = photogallery.filter(imgNature => imgNature.category === "Nature")
+
+        categoryImages.map(catimage => document.getElementById("categoryimg").innerHTML += `
+        <article>
+            <img src="${catimage.imageURL}" alt="${catimage.title}">
+            <h2>${catimage.title}</h2>
+            <p>Photographer: ${catimage.photographer}</p>
+            </article>`
+        )
+
+
+        console.log("array", photogallery)
+        console.log("objekt", photogallery[0].category)
+        console.log(categoryImages)
+
     // console.log(photogallery)
     </script>
 </body>

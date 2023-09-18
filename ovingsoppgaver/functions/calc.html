@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        .red{color: red}
+    </style>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <ul id="result"></ul>
+    <ul id="result2"></ul>
+    <script>
+        function calculator(num1 = 0, num2 = 0){
+            //num1 + num2
+            //num1 - num2
+            //num1 / num2
+            //num1 * num2
+                const add = num1 + num2
+                const subtract = num1 - num2
+                const divide = num1 / num2
+                const multiply = num1 * num2
+
+                document.getElementById("result2").innerHTML = `
+                <li>${num1} + ${num2} = ${add}</li>
+                <li>${num1} - ${num2} = ${subtract}</li>
+                <li>${num1} / ${num2} = ${divide}</li>
+                <li>${num1} * ${num2} = ${multiply}</li>
+                `
+                //4.1
+                    document.getElementById("result").innerHTML = `
+                    <li ${add < 0 ? `class="red"` : null}>${num1} + ${num2} = ${add}</li>
+                    <li ${subtract < 0 ? `class="red"` : null}>${num1} - ${num2} = ${subtract}</li>
+                    <li ${divide < 0 ? `class="red"` : null}>${num1} / ${num2} = ${divide}</li>
+                    <li ${multiply < 0 ? `class="red"` : null}>${num1} * ${num2} = ${multiply}</li>
+                    `
+        }
+        console.log(calculator)
+        calculator(352, 44)
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            list-style: none;
+            font-family: 'helvetica neue', sans-serif;
+            font-weight: 600;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+    <ul id="listedyr"></ul>
+    <script>
+
+        let htmlString = ""
+        const animals = ["Bjørn", "Katt", "Ulv", "Hund", "Grevling", "Høne", "Hval", "Ku", "Okse", "Esel"]
+
+
+        for(let counter = 0; counter < animals.length; counter++){
+            console.log(counter)
+            console.log(animals[counter])
+            document.getElementById("listedyr").innerHTML += `<li>${animals[counter]}</li>`
+        }
+    </script>
+</body>
+</html>
