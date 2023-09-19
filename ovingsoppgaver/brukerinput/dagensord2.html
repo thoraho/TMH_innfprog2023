@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dagens ord - Brukerinput</title>
+</head>
+<body>
+    <h1 id="ord">Dagens ord er: </h1>
+    <button id="velgord">ASd</button>
+    <script>
+        const ordliste = ["Hei", "Halloween", "Drømmefanger", "PC", "Ring", "Elg"]
+
+        const btn = document.getElementById("velgord")
+        
+        
+        btn.addEventListener("click", selectWord)
+
+
+        function selectWord(){
+              let randomWord = ordliste.[Math.floor(Math.random() * ordliste.length)]
+              document.getElementById("")
+        }
+    </script>
+</body>
+</html>

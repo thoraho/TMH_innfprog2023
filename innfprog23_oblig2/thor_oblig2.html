@@ -75,8 +75,17 @@
         
         //TODO: Avslutt liste
         
+        // menuPoints.map((category) => {
+        //     menuHTML += `<h2>${category.menuheader}</h2><ul>`
+
+        //         category.menulinks.forEach((links) => {
+        //             menuHTML += `<li><a href="${links.url}">${links.menutext}</a></li>`
+        //         })
+        //         menuHTML += `</ul>`
+        // })
         menuPoints.map((category) => {
-            menuHTML += `<h2>${category.menuheader}</h2><ul>`
+            menuHTML += `<h2>${category.menuheader}</h2>`
+            menuHTML += `<ul>`
 
                 category.menulinks.forEach((links) => {
                     menuHTML += `<li><a href="${links.url}">${links.menutext}</a></li>`
