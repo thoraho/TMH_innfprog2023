@@ -12,14 +12,16 @@
 
     <script>
         const btn = document.getElementById("sendord")
+        const input = document.getElementById("brukerord")
         const printWord = document.getElementById("ord")
-
-        let wordRegister = ""
 
         btn.addEventListener("click", registerWord)
 
+
         function registerWord(){
-            const regWrd = document.getElementById("brukerord").value
+            printWord.innerHTML = input.value
+            input.value = ""
+            input.focus()
         }
 
     </script>
