@@ -87,7 +87,7 @@
             menuHTML += `<h2>${category.menuheader}</h2>`
             menuHTML += `<ul>`
 
-                category.menulinks.forEach((links) => {
+                category.menulinks.map((links) => {
                     menuHTML += `<li><a href="${links.url}">${links.menutext}</a></li>`
                 })
                 menuHTML += `</ul>`
