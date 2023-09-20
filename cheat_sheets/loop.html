@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loops Cheat Sheet</title>
+    <style>
+        *{
+            font-family: 'helvetica', sans-serif;
+        }
+        section{
+            display: flex;
+            gap: 4px;
+            font-size: 22px;
+            font-weight: 200;
+        }
+
+        p{
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Nedtelling fra 10</h2>
+    <section id="countdown"></section>
+
+    <h2>Alle femmerne mellom 50 og 100</h2>
+    <section id="fives"></section>
+
+    <h2>While</h2>
+    <section id="whileteller"></section>
+
+    <h2>The sum of the hundred</h2>
+    <section id="hundred"></section>
+
+    <h2>Tall delelig på 7</h2>
+    <section id="sevens"></section>
+
+    <script>
+
+        for(let teller = 10;teller >= 0; teller--){
+            document.getElementById("countdown").innerHTML += `<p>${teller}</p>`
+            
+            
+        }
+        
+
+        for(let teller = 50; teller <=100; teller = teller + 5){
+            document.getElementById("fives").innerHTML +=` <p>${teller}</p>`
+
+        }
+
+        let whileTeller = 1
+
+        while(whileTeller < 20){
+            document.getElementById("whileteller").innerHTML += `<p>${whileTeller}</p>`
+            whileTeller++
+        }
+
+        let sum = 0
+        const max = 13
+
+        for(let tall = 1; tall <= max; tall = tall = tall + 1){
+            sum += tall
+            console.log(sum)
+            if(tall < max){
+                document.getElementById("hundred").innerHTML += tall + " + "
+
+            } else{
+                document.getElementById("hundred").innerHTML += tall + " = " + sum
+            }
+        }
+
+        for(let tall = 1; tall <= 100; tall++){
+            if(tall % 7 === 0){
+                document.getElementById("sevens").innerHTML += tall + ", "
+            }
+        }
+    </script>
+</body>
+</html>
