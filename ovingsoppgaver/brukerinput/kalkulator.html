@@ -15,6 +15,29 @@
     <h2 id="resultat"></h2>
 
     <script>
+        const tall1 = document.getElementById("tall1")
+        const tall2 = document.getElementById("tall2")
+        const result = document.getElementById("resultat")
+
+        const add = () => {
+            result.innerHTML = parseInt(tall1.value) + parseInt(tall2.value)
+        }
+        const subtract = () => {
+            result.innerHTML = parseInt(tall1.value) - parseInt(tall2.value)
+        }
+        const multiply = () => {
+            result.innerHTML = parseInt(tall1.value) * parseInt(tall2.value)
+        }
+        const divide = () => {
+            result.innerHTML = parseInt(tall1.value) / parseInt(tall2.value)
+        }
+
+        document.getElementById("pluss").addEventListener("click", add)
+        document.getElementById("minus").addEventListener("click", subtract)
+        document.getElementById("gange").addEventListener("click", multiply)
+        document.getElementById("dele").addEventListener("click", divide)
+
+
         
     </script>
 </body>
