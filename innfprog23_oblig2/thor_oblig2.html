@@ -67,29 +67,22 @@
         let menuHTML = '<ul><li><a href="index.html"><h2>Home</h2></a></li></ul> ';
        
         //Gå gjennom første nivå av menupoints-array
-        //TODO: Forbered HTML med overskrift og listestart
         
-        //TODO: Gå gjennom array på andre nivå (menulinks)
         
-        //TODO: For hver menulink: fyll menuHTML med listeelementer og link
         
-        //TODO: Avslutt liste
         
-        // menuPoints.map((category) => {
-        //     menuHTML += `<h2>${category.menuheader}</h2><ul>`
-
-        //         category.menulinks.forEach((links) => {
-        //             menuHTML += `<li><a href="${links.url}">${links.menutext}</a></li>`
-        //         })
-        //         menuHTML += `</ul>`
-        // })
+        
         menuPoints.map((category) => {
+            //TODO: Forbered HTML med overskrift og listestart
             menuHTML += `<h2>${category.menuheader}</h2>`
             menuHTML += `<ul>`
-
+                
+                //TODO: Gå gjennom array på andre nivå (menulinks)
                 category.menulinks.map((links) => {
+                    //TODO: For hver menulink: fyll menuHTML med listeelementer og link
                     menuHTML += `<li><a href="${links.url}">${links.menutext}</a></li>`
                 })
+                //TODO: Avslutt liste
                 menuHTML += `</ul>`
         })
         console.log(menuHTML)
