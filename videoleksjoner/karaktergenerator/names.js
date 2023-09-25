@@ -282,15 +282,33 @@ function generate(quantity, minage, maxage){
         //Velge vilkårlig etternavn
         const lastname = lastnames[Math.floor(Math.random() * lastnames.length)]
 
+        
+        //Sette tilfeldig alder mellom 18 og 65
+        
         let age = getRandomInt(minage, maxage);
 
-        //Sette tilfeldig alder mellom 18 og 65
 
         function randomImage(gender){
-            if(gender == "M"){
-                
+            let image = getRandomInt(1, 25)
+            
+             if(gender == "M"){
+                if(maleImages.includes(image)) {
+                    randomImage(gender);
+                } else{
+                    maleImages.push(image);
+                    return image;
+                }
+            }
+            if (gender == F){
+                if(femaleImages.includes(image));
+                randomImage(gender);
+            } else{
+                femaleImages.push(image);
+                return image;
             }
         }
+
+
 
         console.log(age)
     }
