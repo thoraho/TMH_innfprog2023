@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Functions</title>
+</head>
+<body>
+    <p id="test"></p>
+    <p id="parametertest"></p>
+    <h2>Alderskalkulator</h2>
+    <p id="agecalc"></p>
+
+
+    <script>
+        //deklarere en funksjon kalt testFunction
+        function testFunction(){
+            console.log("testFunction kjører")
+            const testing = true
+
+            if(testing){
+                document.getElementById("test").innerHTML = "Testing er OK"
+            } else{
+                document.getElementById("test").innerHTML = "Testing feilet"
+            }
+        }
+
+        // Kaller på testFunction
+        testFunction()
+
+        //deklarere en funksjon med parameter
+        function alarmClock(day, time){
+            console.log(time)
+            if(day!== "saturday" && time === "06:30"){
+                document.getElementById("parametertest").innerHTML = "WAKE UP"
+            }
+        }
+
+        alarmClock("monday", "06:30")
+
+        //Deklarere en alderkalkulatorfunksjon med to parametere:
+        //En person fødselsår og året vi skal regne ut alderen i(med en standard verdi)
+        function calcAge(birthyear, year = 2023){
+            const age = year - birthyear
+            let text = ""
+            if(year < 2023){
+                text = `I ${year} var du ${age} år gammel`
+            } else if(year > 2023){
+                text = `I ${year} kommer du til å være ${age} år gammel`
+            } else{
+                text = `I år er du ${age} år gammel`
+            }
+            document.getElementById("agecalc").innerHTML = text
+        }
+
+        calcAge(1990, 2050)
+    </script>  
+</body>
+</html>

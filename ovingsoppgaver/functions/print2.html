@@ -13,7 +13,7 @@
     <script>
         function printName(name, birthyear, email){
             document.getElementById("name").innerHTML = name
-            document.getElementById("mail").innerHTML = email
+            document.getElementById("mail").innerHTML = `<a href="mailto:${email}">${email}</a>`
             document.getElementById("age").innerHTML = 2023 - birthyear
         }
 

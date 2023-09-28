@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfabetetetetet</title>
+</head>
+
+<body>
+    <script>
+        const ab = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N","O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "Æ", "Ø", "Å"]
+        console.log(ab.length)
+        function lookUp(letter) {
+            const bokstav = letter.toString().toUpperCase();
+            const para = document.createElement("p");
+            const index = ab.indexOf(bokstav)
+
+            para.innerText = `Bokstaven ${bokstav} har plassering ${index + 1} i alfabetet`
+            document.body.appendChild(para)
+
+            // if(ab.includes(bokstav)){
+            //     const index = ab.indexOf(bokstav)
+            //     para.innerText = `Bokstaven ${bokstav} har plassering ${index + 1}  i alfabetet`
+            //     document.body.appendChild(para)
+            // } else{
+            //     para.innerText = `Denne bokstaven er ikke en bokstav i det norske alfabetet`
+            //     document.body.appendChild(para);
+            // }
+        }
+
+        lookUp("C")
+    </script>
+</body>
+
+</html>

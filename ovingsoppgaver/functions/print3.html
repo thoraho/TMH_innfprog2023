@@ -15,19 +15,15 @@
         function printName(name = "Hakke navn", email = "Hakke mail", birthyear = "Hakke peiling"){
             document.getElementById("name").innerHTML = name
 
-            if(age === "Hakke peiling"){
-                document.getElementById("age").innerHTML = age
+            if(birthyear === "Hakke peiling"){
+                document.getElementById("age").innerHTML = birthyear
             } else {
-                const birthYearNumber = Number(birthyear)
-
-                const age = 2023 - birthYearNumber
-
-                document.getElementById("age").innerHTML = age
+                document.getElementById("age").innerHTML = 2023 - Number(birthyear)
         }
-            document.getElementById("mail").innerHTML = email
+            document.getElementById("mail").innerHTML = `<a href="mailto:${email}">${email}</a>`
     }
 
-        printName("Thor Andreas", "thoraho@hiof.no", 1990)
+        printName("Thor Andreas", "thoraho@hiof.no", "1990")
     </script>
 </body>
 </html>
