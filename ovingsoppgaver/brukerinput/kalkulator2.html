@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator2</title>
+</head>
+<body>
+    <input type="text" id="tall1">
+    <select name="" id="operator">
+        <option value="pluss">Pluss</option>
+        <option value="minus">Minus</option>
+        <option value="gange">Gange</option>
+        <option value="dele">Dele</option>
+    </select>
+    <input type="text" id="tall2">
+    <button id="regnut">Regn ut</button>
+
+    <span id="resultat"></span>
+
+    <script>
+        const tall1 = document.getElementById("tall1")
+        const tall2 = document.getElementById("tall2")
+        const operator = document.getElementById("operator")
+        const resultat = document.getElementById("resultat")
+        const btn = document.getElementById("regnut")
+
+        function utregning(tall1, operator, tall2){
+            // if(operator === "pluss"){
+            //     console.log(tall1 + tall2)
+            // } else if(operator === "minus"){
+            //     console.log(tall1 - tall2)
+            // } else if(operator === "gange"){
+            //     console.log(tall1 * tall2)
+            // } else if(operator === "dele"){
+            //     console.log(tall1 / tall2)
+            // }
+
+            document.getElementById("resultat").innerHTML = 
+            //if-test med ternary operator
+            operator === "pluss" ? tall1 + tall2 : operator === "minus" ? tall1 - tall2 : operator === "gange" ? tall1 * tall2 : operator === "dele" ? tall1 / tall2 : null;
+        }
+
+
+        btn.addEventListener("click", function(){
+            utregning(parseInt(tall1.value), operator.value, parseInt(tall2.value))
+        })
+
+    </script>
+</body>
+</html>
