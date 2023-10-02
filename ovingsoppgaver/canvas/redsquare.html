@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squares</title>
+</head>
+<body>
+    <canvas id="square"></canvas>
+
+
+    <script>
+        const canvas = document.getElementById("square")
+        canvas.width = 600
+        canvas.height = 600
+        ctx = canvas.getContext("2d")
+
+
+        ctx.beginPath()
+        ctx.rect(0, 0, 200, 200)
+        ctx.fillStyle = "#FF0000"
+        ctx.fill()
+        ctx.stroke()
+        ctx.closePath()
+
+        ctx.beginPath()
+        ctx.rect(200, 200, 200, 200)
+        ctx.fillStyle = "green"
+        ctx.fill()
+        ctx.stroke()
+        ctx.closePath
+
+        ctx.beginPath()
+        ctx.rect(400, 400, 200, 200)
+        ctx.fillStyle = "blue"
+        ctx.fill()
+        ctx.stroke()
+        ctx.closePath
+
+    </script>
+</body>
+</html>

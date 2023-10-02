@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cross</title>
+</head>
+<body>
+    <canvas id="cross"></canvas>
+
+    <script>
+        const canvas = document.getElementById("cross")
+        const ctx = canvas.getContext("2d")
+        const ctx2 = canvas.getContext("2d")
+
+        canvas.height = 500
+        canvas.width = 500
+
+        ctx.moveTo(0, 0)
+        ctx.lineTo(500, 500)
+        ctx.stroke()
+
+        ctx2.moveTo(500, 0)
+        ctx2.lineTo(0, 500)
+        ctx2.stroke()
+    </script>
+</body>
+</html>

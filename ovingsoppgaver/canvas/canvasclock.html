@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>.arc()</title>
+</head>
+<body>
+    <canvas id="clock"></canvas>
+
+    <script>
+        const canvas = document.getElementById("clock")
+        canvas.width = 700
+        canvas.height = 700
+        const ctx = canvas.getContext("2d")
+
+        
+        ctx.beginPath()
+        ctx.arc(350, 350, 340, 0, 2 * Math.PI)
+        ctx.lineWidth = 10
+        ctx.stroke()
+        ctx.closePath()
+
+        ctx.beginPath()
+        ctx.font = "30px Inter"
+        ctx.fillText("12", 350, 50)
+        ctx.fillText("6", 350, 670)
+        ctx.fillText("3", 660, 350)
+        ctx.fillText("9", 20, 350)
+        ctx.fillText("8", 60, 350)
+        ctx.fillText("7", 180, 350)
+        ctx.closePath()
+
+        ctx.beginPath()
+        ctx.moveTo(350, 350)
+        ctx.lineTo(70, 520)
+        ctx.lineWidth = 10
+        ctx.stroke()
+        ctx.closePath()
+        
+        ctx.beginPath()
+        ctx.moveTo(350, 350)
+        ctx.lineTo(500, 200)
+        ctx.lineWidth = 10
+        ctx.stroke()
+
+    </script>
+</body>
+</html>
