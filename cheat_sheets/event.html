@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event</title>
+    <style>
+        #knapp{
+            font-size: 30px;
+            padding: 1rem;
+            color: white;
+            border: 3px solid darkgreen;
+            transition: ease-in-out .4s;
+        }
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <button id="knapp" class="green">Trykk meg</button>
+    <p id="melding"></p>
+
+
+    <script>
+        //sjekk hva et event inneholder av egenskaper
+        document.addEventListener("mousemove", function(event){
+            // console.log(event)
+        })
+
+        const knapp = document.getElementById("knapp")
+        const p = document.getElementById("melding")
+
+        //Vi skal endre knappeteksten når vi holder musepekeren over knappen
+        knapp.addEventListener("mouseover", function(event){
+            knapp.innerHTML = `Neeei, ikke trykk på meg`
+            knapp.classList.remove("green")
+            knapp.classList.add("red")
+
+        })
+
+        knapp.addEventListener("mouseleave", function(event){
+            knapp.innerHTML = `Trykk meg`
+            knapp.classList.remove("red")
+            knapp.classList.add("green")
+        })
+
+        //Vi skal lage en eventListener etter trykk på knapp med ID "knapp"
+        knapp.addEventListener("click", function(event){
+            console.log(event)
+            melding.innerHTML = `Klarte ikke dy deg du, din lille snik??`
+        })
+
+        
+    </script>
+</body>
+</html>
