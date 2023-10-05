@@ -261,32 +261,45 @@
             //Now you know the drill: show #winner by display: block and fill it with HTML:
             const winnerDiv = document.getElementById("winner")
             winnerDiv.style.display = "block"
-            //Laget funksjon for å sjekke vinner og endre farge
-            function winnerPlayer(playerSign, cpuSign){
-                if(winner === "player"){
-                    playerW = playerW + 1
-                    winnerDiv.style.backgroundColor = "#FFD700"
-                    winnerDiv.innerHTML = `You win!`
 
-                } else if(winner === "computer"){
-                    cpuW = cpuW + 1
-                    winnerDiv.style.backgroundColor = "red"
-                    winnerDiv.innerHTML = `You lost..`
-                } else {
-                    draw = draw + 1
-                    winnerDiv.style.backgroundColor = "green"
+            //if-test for å styre tellere for hvem som vinner
+            if(winner === "player"){
+                playerW = playerW + 1
+                winnerDiv.style.backgroundColor = "#FFD700"
+                winnerDiv.innerHTML = `You win!`
+            } else if(winner === "computer"){
+                cpuW = cpuW + 1
+                winnerDiv.style.backgroundColor = "red"
+                winnerDiv.innerHTML = `You lost..`
+            } else{
+                draw = draw + 1
+                winnerDiv.style.backgroundColor = "green"
                     winnerDiv.innerHTML = `It's a tie!`
-                }
             }
+            
+            //Laget funksjon for å sjekke vinner og endre farge
+            // function winnerPlayer(playerSign, cpuSign){
+            //     if(winner === "player"){
+            //         winnerDiv.style.backgroundColor = "#FFD700"
+            //         winnerDiv.innerHTML = `You win!`
+            //     } else if(winner === "computer"){
+            //         winnerDiv.style.backgroundColor = "red"
+            //         winnerDiv.innerHTML = `You lost..`
+            //     } else {
+            //         winnerDiv.style.backgroundColor = "green"
+            //         winnerDiv.innerHTML = `It's a tie!`
+            //     }
+            // }
+
 
             document.getElementById("playerW").innerHTML = playerW
             document.getElementById("cpuW").innerHTML = cpuW
             document.getElementById("draw").innerHTML = draw
             console.log(playerW)
             //kaller funksjon
-            winnerPlayer()
-            
 
+            
+                //kommenterer ut gammel vinner-tekst
             // winnerDiv.innerHTML = "The winner is " + winner
             /* OPPGAVE 2.2: FORKLAR HVA SOM SKJER PÅ LINJE 254
              * Endrer CSS-displayverdien for HTML-elementet med id="winner" til display: block;
@@ -317,6 +330,9 @@
         function restartGame() {
             //Firstly, we'll reset the winner:
             winner = ""
+            playerW = 0
+            cpuW = 0
+            draw = 0
             //Then, we'll remove the class from the selected button:
             buttons.forEach(button => {
                 button.removeAttribute("class")
