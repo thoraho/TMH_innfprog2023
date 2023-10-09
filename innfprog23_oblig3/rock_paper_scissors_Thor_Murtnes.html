@@ -132,6 +132,7 @@
             <button type="button" onClick="play('rock')" id="rockButton" class="playerChoice"><img src="rock.png" alt="Rock" /></button><!-- rettet skrivefeil i onClick for ('rock') fra playy til play -->
             <button type="button" onClick="play('paper')" id="paperButton" class="playerChoice"><img src="paper.png" alt="Paper" /></button>
             <button type="button" onClick="play('scissors')" id="scissorsButton" class="playerChoice"><img src="scissors.png" alt="Scissors" /></button>
+            <button type="button" onClick="play('nerfgun')" id="nerfgunButton" class="playerChoice"><img src="nerfgun.png" alt="NERF-gun" /></button>
         </div>
         <div id="selection">
             <!-- HTML element to show player selection -->
@@ -161,7 +162,7 @@
         let cpuW = 0
         let draw = 0
         //Make available signs available in code as an array
-        const signs = ["rock", "paper", "scissors"]
+        const signs = ["rock", "paper", "scissors", "nerfgun"]
         
         //Find all buttons in the document.
         const buttons = document.querySelectorAll(".playerChoice");
@@ -205,6 +206,8 @@
             // That means we can create a function that does this for us. So it is done below this function.
             // Now, let's use it to get a random number from 0 (first index of an array) to array.length - 1
             // (maximum index of an array is its length minus 1)
+            
+            //Computer velger aldri siste i array dersom - 1 ligger på length???
             const randomIndex = getRandomInt(signs.length)
             //Now we can call the random computer selected sign from the signs-array:
             const computerSign = signs[randomIndex]
@@ -222,47 +225,63 @@
             // Ok, now we have to check for rules! Paper beats rock, rock beat scissors, scissors beat paper.
             // This means if players sign beat computer sign, player wins. Lets try:
 
-            if(playerSign === "paper") {
-                if(computerSign === "rock") {
-                    winner = "player"
-                }
-                if(computerSign === "scissors") {
-                    winner = "computer"
-                }
-                if(computerSign === "paper") {
-                    winner = "undecided"
-                }
-            }
-            if(playerSign === "rock") {
-                if(computerSign === "rock") {
-                    winner = "undecided"
-                }
-                if(computerSign === "scissors") {
-                    winner = "player"
-                }
-                if(computerSign === "paper") {
-                    winner = "computer"
-                }
-            }
-            if(playerSign === "scissors") {
-                if(computerSign === "rock") {
-                    winner = "computer"
-                }
-                if(computerSign === "scissors") {
-                    winner = "undecided"
-                }
-                if(computerSign === "paper") {
-                    winner = "player"
-                }
-            }
+            // if(playerSign === "paper") {
+            //     if(computerSign === "rock") {
+            //         winner = "player"
+            //     }
+            //     if(computerSign === "scissors") {
+            //         winner = "computer"
+            //     }
+            //     if(computerSign === "paper") {
+            //         winner = "undecided"
+            //     }
+            // }
+            // if(playerSign === "rock") {
+            //     if(computerSign === "rock") {
+            //         winner = "undecided"
+            //     }
+            //     if(computerSign === "scissors") {
+            //         winner = "player"
+            //     }
+            //     if(computerSign === "paper") {
+            //         winner = "computer"
+            //     }
+            // }
+            // if(playerSign === "scissors") {
+            //     if(computerSign === "rock") {
+            //         winner = "computer"
+            //     }
+            //     if(computerSign === "scissors") {
+            //         winner = "undecided"
+            //     }
+            //     if(computerSign === "paper") {
+            //         winner = "player"
+            //     }
+            // }
 
+
+                //Oppgave 7, 8 og bonus1:
+
+            if(playerSign === computerSign){
+                winner = "undecided"
+            } else if(playerSign === "paper" && computerSign === "rock"){
+                winner = "player"
+            } else if(playerSign === "rock" && computerSign === "nerfgun"){
+                winner = "player"
+            } else if(playerSign === "nerfgun" && computerSign === "scissors"){
+                winner = "player"
+            } else if(playerSign === "scissors" && computerSign === "paper"){
+                winner = "player"
+            } else{
+                winner = "computer"
+            }
             
             //Now we have checks to set the winner. Let's write it to the website.
             //Now you know the drill: show #winner by display: block and fill it with HTML:
             const winnerDiv = document.getElementById("winner")
             winnerDiv.style.display = "block"
 
-            //if-test for å styre tellere for hvem som vinner
+            //if-test for å styre tellere for hvem som vinner og legge på backgroundColor
             if(winner === "player"){
                 playerW = playerW + 1
                 winnerDiv.style.backgroundColor = "#FFD700"
@@ -274,7 +293,7 @@
             } else{
                 draw = draw + 1
                 winnerDiv.style.backgroundColor = "green"
-                    winnerDiv.innerHTML = `It's a tie!`
+                winnerDiv.innerHTML = `It's a tie!`
             }
             
             //Laget funksjon for å sjekke vinner og endre farge
@@ -296,9 +315,7 @@
             document.getElementById("cpuW").innerHTML = cpuW
             document.getElementById("draw").innerHTML = draw
             console.log(playerW)
-            //kaller funksjon
 
-            
                 //kommenterer ut gammel vinner-tekst
             // winnerDiv.innerHTML = "The winner is " + winner
             /* OPPGAVE 2.2: FORKLAR HVA SOM SKJER PÅ LINJE 254
