@@ -141,7 +141,39 @@
         }
 
         updateStaticUI()
+        const infoPage = document.getElementById("info-page")
+        const noteBookPage = document.getElementById("notebook-page")
+        //legger til knapper i variabler og legger addEventListener på knappene
+        const noteBtn = document.getElementById("notebookToggler")
+        noteBtn.addEventListener("click", hideNotebook)
         
+        const noteBook = document.getElementById("notebook")
+        
+        //funksjon for å skjule notatbok
+        function hideNotebook(){
+            if(noteBook.classList.contains("hidden")){
+                noteBook.classList.remove("hidden")
+                noteBook.style.display = "block"
+                infoPage.style.display = "none"
+            } else{
+                noteBook.classList.add("hidden")
+                noteBook.style.display = "none"
+            }
+        }
+        
+        const infoBtn = document.getElementById("infoToggler")
+        infoBtn.addEventListener("click", hideInfo)
+        
+        function hideInfo(){
+            if(infoPage.classList.contains("hidden")){
+                infoPage.classList.remove("hidden")
+                infoPage.style.display = "block"
+                noteBook.style.display = "none"
+            } else{
+                infoPage.classList.add("hidden")
+                infoPage.style.display = "none"
+            }
+        }
     </script>
 </body>
 </html>
