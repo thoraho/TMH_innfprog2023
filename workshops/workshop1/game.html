@@ -141,39 +141,46 @@
         }
 
         updateStaticUI()
-        const infoPage = document.getElementById("info-page")
+
+        
+        
+        
+        //legger til knapper og elementer i variabler og legger addEventListener på knappene
+        
         const noteBookPage = document.getElementById("notebook-page")
-        //legger til knapper i variabler og legger addEventListener på knappene
         const noteBtn = document.getElementById("notebookToggler")
+        
+        const noteBook = document.getElementById("notebook-page")
         noteBtn.addEventListener("click", hideNotebook)
         
-        const noteBook = document.getElementById("notebook")
-        
-        //funksjon for å skjule notatbok
+        //funksjon for å skjule/vise notatbok
         function hideNotebook(){
             if(noteBook.classList.contains("hidden")){
                 noteBook.classList.remove("hidden")
                 noteBook.style.display = "block"
-                infoPage.style.display = "none"
             } else{
                 noteBook.classList.add("hidden")
                 noteBook.style.display = "none"
             }
+            console.log(hideNotebook())
         }
         
+        const infoPage = document.getElementById("info-page")
         const infoBtn = document.getElementById("infoToggler")
-        infoBtn.addEventListener("click", hideInfo)
         
+        infoBtn.addEventListener("click", hideInfo)
+        //funksjon for å skjule/vise info
         function hideInfo(){
             if(infoPage.classList.contains("hidden")){
                 infoPage.classList.remove("hidden")
                 infoPage.style.display = "block"
-                noteBook.style.display = "none"
             } else{
                 infoPage.classList.add("hidden")
                 infoPage.style.display = "none"
             }
+            console.log(hideInfo())
         }
-    </script>
+
+        </script>
 </body>
 </html>
