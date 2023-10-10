@@ -23,6 +23,8 @@
                 <li><img src="icons/solution.svg"> <span id="points">0</span> poeng</li>
                 <li><img src="icons/clock.svg"> <span id="duration">0</span></li>
             </ul>
+            <button onClick="updateConfigValue('playerName', 'Coolio')">Name</button>
+            <button onClick="updateConfigValue('energy', 55)">Update energy</button>
         </section>
         <img src="icons/c3_logo.svg" alt="Code Concept Collector" />
         <nav>
@@ -137,7 +139,6 @@
 
             document.getElementById("notebookItems").innerHTML = ntbItems
             
-            console.log("log function", updateStaticUI)
         }
 
         updateStaticUI()
@@ -147,40 +148,71 @@
         
         //legger til knapper og elementer i variabler og legger addEventListener på knappene
         
-        const noteBookPage = document.getElementById("notebook-page")
+        const noteBookPage = document.getElementById("notebook")
         const noteBtn = document.getElementById("notebookToggler")
         
-        const noteBook = document.getElementById("notebook-page")
-        noteBtn.addEventListener("click", hideNotebook)
+        noteBtn.addEventListener("click", hideNote)
         
         //funksjon for å skjule/vise notatbok
-        function hideNotebook(){
-            if(noteBook.classList.contains("hidden")){
-                noteBook.classList.remove("hidden")
-                noteBook.style.display = "block"
+        function hideNote(){
+            if(noteBookPage.classList.contains("hidden")){
+                noteBookPage.classList.remove("hidden")
+                noteBookPage.style.display = "block"
+                if(infoPage.style.display = "block"){
+                    infoPage.style.display = "none"
+                    infoPage.classList.add("hidden")
+                }
             } else{
-                noteBook.classList.add("hidden")
-                noteBook.style.display = "none"
+                noteBookPage.classList.add("hidden")
+                noteBookPage.style.display = "none"
             }
-            console.log(hideNotebook())
+            console.log(noteBookPage)
         }
-        
-        const infoPage = document.getElementById("info-page")
+
+        const infoPage = document.getElementById("info")
         const infoBtn = document.getElementById("infoToggler")
-        
+
         infoBtn.addEventListener("click", hideInfo)
         //funksjon for å skjule/vise info
         function hideInfo(){
             if(infoPage.classList.contains("hidden")){
                 infoPage.classList.remove("hidden")
                 infoPage.style.display = "block"
+                if(noteBookPage.style.display = "block"){
+                    noteBookPage.classList.add("hidden")
+                    noteBookPage.style.display = "none"
+                }
             } else{
                 infoPage.classList.add("hidden")
                 infoPage.style.display = "none"
             }
-            console.log(hideInfo())
+            console.log(infoPage)
         }
+        
+        //EventListeners for tastetrykk
+        document.addEventListener("keydown", event => {
+            event.code === "KeyN" ? hideNote() : null
+        })
+        document.addEventListener("keydown", event => {
+            event.code === "KeyI" ? hideInfo() : null
+        })
 
+        //Function for å oppdatere enkeltelementer
+        function updateSingleStaticUI(collectID = "", value = 0){
+            const collect = document.getElementById(collectID)
+            if(collect)
+            collect.innerHTML = value
+        }
+        updateSingleStaticUI("arrays", 10)
+
+
+        function updateConfigValue(configType = "", value = ""){
+            const config = document.getElementById(configType)
+            if(config){
+                config.innerHTML = value
+            }
+            console.log(config)
+        }
         </script>
 </body>
 </html>
