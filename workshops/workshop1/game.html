@@ -152,8 +152,7 @@
         const noteBtn = document.getElementById("notebookToggler")
         
         noteBtn.addEventListener("click", hideNote)
-        
-        //funksjon for å skjule/vise notatbok
+        //funksjon for å skjule/vise notebook
         function hideNote(){
             if(noteBookPage.classList.contains("hidden")){
                 noteBookPage.classList.remove("hidden")
@@ -168,10 +167,10 @@
             }
             console.log(noteBookPage)
         }
-
+        
         const infoPage = document.getElementById("info")
         const infoBtn = document.getElementById("infoToggler")
-
+        
         infoBtn.addEventListener("click", hideInfo)
         //funksjon for å skjule/vise info
         function hideInfo(){
