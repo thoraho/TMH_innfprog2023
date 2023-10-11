@@ -148,12 +148,44 @@
         
         //legger til knapper og elementer i variabler og legger addEventListener på knappene
         
+        
         const noteBookPage = document.getElementById("notebook")
         const noteBtn = document.getElementById("notebookToggler")
+        noteBtn.addEventListener("click", () => toggleSelection(noteBookPage, infoPage))
         
-        noteBtn.addEventListener("click", hideNote)
+        const infoPage = document.getElementById("info")
+        const infoBtn = document.getElementById("infoToggler")
+        
+        infoBtn.addEventListener("click", () => toggleSelection(infoPage, noteBookPage))
+
+
+        // oppdatert function som tar imot parametere showElement og hideElement for å skjule og vise notebook og info
+        function toggleSelection(showElement, hideElement){
+            if(showElement.classList.contains("hidden")){
+                showElement.classList.remove("hidden")
+                showElement.style.display = "block"
+                if(hideElement.style.display === "block"){
+                    hideElement.style.display = "none"
+                    hideElement.classList.add("hidden")
+                }
+            } else{
+                showElement.classList.add("hidden")
+                showElement.style.display = "none"
+            }
+        }
+
+        //EventListeners for tastetrykk
+        document.addEventListener("keydown", event => {
+            event.code === "KeyN" ? toggleSelection(noteBookPage, infoPage) : null
+        })
+        document.addEventListener("keydown", event => {
+            event.code === "KeyI" ? toggleSelection(infoPage, noteBookPage) : null
+        })
+
+
+
         //funksjon for å skjule/vise notebook
-        function hideNote(){
+/*         function hideNote(){
             if(noteBookPage.classList.contains("hidden")){
                 noteBookPage.classList.remove("hidden")
                 noteBookPage.style.display = "block"
@@ -168,10 +200,6 @@
             console.log(noteBookPage)
         }
         
-        const infoPage = document.getElementById("info")
-        const infoBtn = document.getElementById("infoToggler")
-        
-        infoBtn.addEventListener("click", hideInfo)
         //funksjon for å skjule/vise info
         function hideInfo(){
             if(infoPage.classList.contains("hidden")){
@@ -186,15 +214,8 @@
                 infoPage.style.display = "none"
             }
             console.log(infoPage)
-        }
+        } */
         
-        //EventListeners for tastetrykk
-        document.addEventListener("keydown", event => {
-            event.code === "KeyN" ? hideNote() : null
-        })
-        document.addEventListener("keydown", event => {
-            event.code === "KeyI" ? hideInfo() : null
-        })
 
         //Function for å oppdatere enkeltelementer
         function updateSingleStaticUI(collectID = "", value = 0){
