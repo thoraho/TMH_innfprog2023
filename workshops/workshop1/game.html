@@ -23,7 +23,7 @@
                 <li><img src="icons/solution.svg"> <span id="points">0</span> poeng</li>
                 <li><img src="icons/clock.svg"> <span id="duration">0</span></li>
             </ul>
-            <button onClick="updateConfigValue('playerName', 'Coolio')">Name</button>
+            <button onClick="updateConfigValue('playerName', 'Thor')">Name</button>
             <button onClick="updateConfigValue('energy', 55)">Update energy</button>
         </section>
         <img src="icons/c3_logo.svg" alt="Code Concept Collector" />
@@ -34,7 +34,7 @@
     </header>
     <main>
         
-        <section id="notebook">
+        <section id="notebook" class="hideable">
             <div id="notebook-page">
                 
                 <h2>Notater</h2>
@@ -62,7 +62,7 @@
                 </table>
             </div>
         </section>
-        <section id="info" class="hidden">
+        <section id="info" class="hidden hideable">
             <div id="info-page">
                 <h2>Info / Hvordan spille C<sup>3</sup></h2>
                 <p>Målet med spiller er at programmeringsstudenten Fortran <span class="illustration">(<img src="icons/fortran.svg" />)</span> skal samle programmeringskonseptene variabler <span class="illustration">(<img src="icons/variable.svg" />)</span>, arrayer <span class="illustration">(<img src="icons/array.svg" />)</span>, løkker <span class="illustration">(<img src="icons/loop.svg" />)</span> og funksjoner <span class="illustration">(<img src="icons/function.svg" />)</span> i kladdeboka <span class="illustration">(<img src="icons/notebook.svg" />)</span> si.</p>
@@ -74,6 +74,7 @@
                 <p>Gå på en oppgave når denne dukker opp for å løse en oppgave for å score poeng. Du får 10 poeng for å løse en oppgave, 1 poeng for hvert konsept du samler.</p>
             </div>
         </section>
+        <canvas id="drawingarea"></canvas>
     </main>
     <script>
         //PREPARE GAME CONFIG AND VARIABLES
@@ -82,7 +83,8 @@
             player: "",
             energy: 2,
             points: 88,
-            duration: 17
+            duration: 17,
+            gamePaused: true
         }
 
         // if(gameconfig.player === ""){
@@ -104,7 +106,6 @@
 
         let ntbItems = notebook.variables + notebook.arrays + notebook.loops + notebook.functions
 
-            console.log(ntbItems)
         //TODO: print notebook info to HTML
 
         // document.getElementById("variables").innerHTML = `${notebook.variables}`
@@ -143,7 +144,7 @@
 
         updateStaticUI()
 
-        
+        //workshop2
         
         
         //legger til knapper og elementer i variabler og legger addEventListener på knappene
@@ -151,6 +152,7 @@
         
         const noteBookPage = document.getElementById("notebook")
         const noteBtn = document.getElementById("notebookToggler")
+        
         noteBtn.addEventListener("click", () => toggleSelection(noteBookPage, infoPage))
         
         const infoPage = document.getElementById("info")
@@ -164,75 +166,93 @@
             if(showElement.classList.contains("hidden")){
                 showElement.classList.remove("hidden")
                 showElement.style.display = "block"
+
                 if(hideElement.style.display === "block"){
                     hideElement.style.display = "none"
                     hideElement.classList.add("hidden")
                 }
+
             } else{
                 showElement.classList.add("hidden")
                 showElement.style.display = "none"
             }
         }
-
         //EventListeners for tastetrykk
         document.addEventListener("keydown", event => {
-            event.code === "KeyN" ? toggleSelection(noteBookPage, infoPage) : null
-        })
-        document.addEventListener("keydown", event => {
-            event.code === "KeyI" ? toggleSelection(infoPage, noteBookPage) : null
+            event.code === "KeyN" ? toggleSelection(noteBookPage, infoPage) : null || event.code === "KeyI" ? toggleSelection(infoPage, noteBookPage) : null
         })
 
 
-
-        //funksjon for å skjule/vise notebook
-/*         function hideNote(){
-            if(noteBookPage.classList.contains("hidden")){
-                noteBookPage.classList.remove("hidden")
-                noteBookPage.style.display = "block"
-                if(infoPage.style.display = "block"){
-                    infoPage.style.display = "none"
-                    infoPage.classList.add("hidden")
-                }
-            } else{
-                noteBookPage.classList.add("hidden")
-                noteBookPage.style.display = "none"
-            }
-            console.log(noteBookPage)
-        }
-        
-        //funksjon for å skjule/vise info
-        function hideInfo(){
-            if(infoPage.classList.contains("hidden")){
-                infoPage.classList.remove("hidden")
-                infoPage.style.display = "block"
-                if(noteBookPage.style.display = "block"){
-                    noteBookPage.classList.add("hidden")
-                    noteBookPage.style.display = "none"
-                }
-            } else{
-                infoPage.classList.add("hidden")
-                infoPage.style.display = "none"
-            }
-            console.log(infoPage)
-        } */
         
 
         //Function for å oppdatere enkeltelementer
-        function updateSingleStaticUI(collectID = "", value = 0){
-            const collect = document.getElementById(collectID)
-            if(collect)
-            collect.innerHTML = value
+        function updateSingleStaticUI(collectID, value){
+            document.getElementById(collectID).innerHTML = value
         }
-        updateSingleStaticUI("arrays", 10)
+        updateSingleStaticUI("variables", 22)
 
         //funksjon for å oppdatere config(playerName, energy, )
-        function updateConfigValue(configType = "", value = ""){
+        function updateConfigValue(configType, value){
             const config = document.getElementById(configType)
-            if(config){
-                config.innerHTML = value
+            config.innerHTML = value
             }
-            console.log(config)
+        
+        //workshop3
+        //1
+        const canvas = document.getElementById("drawingarea")
+        canvas.width = 800;
+        canvas.height = 600;
+        const context = canvas.getContext("2d")
+        //2
+        context.beginPath()
+        context.fillStyle = "#ffffff"
+        context.fillRect(650, 575, 150, 25)
+        context.fill()
+        context.closePath()
+
+        context.beginPath()
+        context.font = "16px Inter"
+        context.fillStyle = "#3c429b"
+        context.fillText("Press P to Pause", 660, 593)
+        context.closePath()
+
+        //3
+        const fortran = {
+            speed: "",
+            X: "",
+            Y: ""
         }
+        context.beginPath()
+        const heroImage = new Image()
+        let heroLoaded = false
+
+        heroImage.onload = () => {heroLoaded = true}
+    
+        heroImage.src = "icons/fortran.png"
+
+        heroLoaded ? ctx.drawImage(heroImage, 200, 200) : null
+        context.closePath()
+        
+        //4
+        context.beginPath()
+        context.font = "20px Inter"
+        context.fillStyle = "#3C429B"
+        context.fillText("Game Paused", 200, 200)
+        context.closePath()
+
+        function gamePaused(){
+            if(gameconfig.gamePaused === true){
+                gameconfig.gamePaused = false
+            } else{
+                gameconfig.gamePaused = true
+            }
+            console.log(gameconfig.gamePaused)
+        }
+
+        document.addEventListener("keydown", event => {
+            event.code === "KeyP" ? gamePaused() : null
+        })
+        
         </script>
 </body>
 </html>

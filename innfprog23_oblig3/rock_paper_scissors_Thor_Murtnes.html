@@ -262,13 +262,13 @@
             // Ok, now we have to check for rules! Paper beats rock, rock beat scissors, scissors beat paper.
             // This means if players sign beat computer sign, player wins. Lets try:
             //Oppgave 7, 8 og bonus1:
-            setTimeout(checkWinner, 1000)
+            
             function checkWinner(playerSign, computerSign){
                 if(playerSign === computerSign) {
                     return "undecided"
                 } else if(
                     playerSign === "paper" && computerSign === "rock" ||
-                    playerSign === "rock" && computerSign === "scissors" ||
+                    playerSign === "rock" && computerSign === "nerfgun" ||
                     playerSign === "scissors" && computerSign === "paper" ||
                     playerSign === "nerfgun" && computerSign === "scissors") {
                         return "player"
