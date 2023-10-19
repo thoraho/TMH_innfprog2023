@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+    <style>
+        body{
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingarea"></canvas>
+
+    <script>
+        const canvas = document.getElementById("drawingarea")
+        canvas.width = 800
+        canvas.height = 600
+        const ctx = canvas.getContext("2d")
+
+        
+        ctx.beginPath()
+        ctx.moveTo(0, 0)
+        ctx.strokeStyle = "green"
+        ctx.lineWidth = 3
+        ctx.lineTo(canvas.width / 2, canvas.height / 2)
+        ctx.stroke()
+        ctx.closePath()
+        
+        ctx.beginPath()
+        ctx.fillStyle = "blue"
+        ctx.fillRect(500, 400, 300, 200)
+        ctx.closePath()
+
+        ctx.beginPath()
+        ctx.lineWidth = 5
+        ctx.strokeStyle = "red"
+        ctx.strokeRect(500, 0, 300, 200)
+        ctx.closePath()
+
+        ctx.beginPath()
+        ctx.arc(150, 450, 100, 0, 2 * Math.PI)
+        ctx.fillStyle = "gold"
+        ctx.strokeStyle = "black"
+        ctx.fill()
+        ctx.stroke()
+        ctx.closePath()
+
+        ctx.beginPath()
+        ctx.fillStyle = "black"
+        ctx.font = "60px Inter"
+        ctx.fillText("10", 117, 470)
+        ctx.closePath()
+        
+    </script>
+</body>
+</html>

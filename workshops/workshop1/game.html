@@ -23,8 +23,6 @@
                 <li><img src="icons/solution.svg"> <span id="points">0</span> poeng</li>
                 <li><img src="icons/clock.svg"> <span id="duration">0</span></li>
             </ul>
-            <button onClick="updateConfigValue('playerName', 'Thor')">Name</button>
-            <button onClick="updateConfigValue('energy', 55)">Update energy</button>
         </section>
         <img src="icons/c3_logo.svg" alt="Code Concept Collector" />
         <nav>
@@ -33,7 +31,6 @@
         </nav>
     </header>
     <main>
-        
         <section id="notebook" class="hideable">
             <div id="notebook-page">
                 
@@ -81,7 +78,7 @@
         //TODO: config
         let gameconfig = {
             player: "",
-            energy: 2,
+            energy: 10,
             points: 88,
             duration: 17,
             gamePaused: true
@@ -103,8 +100,33 @@
             loops: 6,
             functions: 8
         }
-
+        
         let ntbItems = notebook.variables + notebook.arrays + notebook.loops + notebook.functions
+
+
+        //5
+        //funksjon for å oppdatere config(playerName, energy)
+        function updateConfigValue(configType, value){
+            // if(configType === "energy"){
+            //     gameconfig.energy = gameconfig.energy + value
+            //     console.log(gameconfig.energy)
+            // }
+            configType === "energy" ? gameconfig.energy = gameconfig.energy + value : null
+            configType === "points" ? gameconfig.points = gameconfig.points + value : null
+            configType === "duration" ? gameconfig.duration = gameconfig.duration + value : null
+            configType === "variables" ? notebook.variables = notebook.variables + value : null
+            configType === "arrays" ? notebook.arrays = notebook.arrays + value : null
+            configType === "loops" ? notebook.loops = notebook.loops + value : null
+            configType === "functions" ? notebook.functions = notebook.functions + value : null
+            }
+
+            updateConfigValue("energy", 1)
+        
+        //4
+        //Function for å oppdatere enkeltelementer
+        function updateSingleStaticUI(collectID, value){
+            document.getElementById(collectID).innerHTML = value
+        }
 
         //TODO: print notebook info to HTML
 
@@ -121,7 +143,7 @@
         
 
         //(BONUS) TODO: function for all prints
-
+/* 
         function updateStaticUI(){
             if(gameconfig.player == ""){
                 document.getElementById("playerName").innerHTML = `Waiting for player`
@@ -137,12 +159,12 @@
             document.getElementById("arrays").innerHTML = `${notebook.arrays}`
             document.getElementById("loops").innerHTML = `${notebook.loops}`
             document.getElementById("functions").innerHTML = `${notebook.functions}`
-
+            
             document.getElementById("notebookItems").innerHTML = ntbItems
             
-        }
+            updateStaticUI()
+        } */
 
-        updateStaticUI()
 
         //workshop2
         
@@ -179,24 +201,10 @@
         }
         //EventListeners for tastetrykk
         document.addEventListener("keydown", event => {
-            event.code === "KeyN" ? toggleSelection(noteBookPage, infoPage) : null || event.code === "KeyI" ? toggleSelection(infoPage, noteBookPage) : null
+            event.code === "KeyN" ? toggleSelection(noteBookPage, infoPage) : null || 
+            event.code === "KeyI" ? toggleSelection(infoPage, noteBookPage) : null
         })
 
-
-        
-
-        //Function for å oppdatere enkeltelementer
-        function updateSingleStaticUI(collectID, value){
-            document.getElementById(collectID).innerHTML = value
-        }
-        updateSingleStaticUI("variables", 22)
-
-        //funksjon for å oppdatere config(playerName, energy, )
-        function updateConfigValue(configType, value){
-            const config = document.getElementById(configType)
-            config.innerHTML = value
-            }
-        
         //workshop3
         //1
         const canvas = document.getElementById("drawingarea")
@@ -217,27 +225,46 @@
         context.closePath()
 
         //3
-        const fortran = {
-            speed: "",
-            X: "",
-            Y: ""
+        let fortran = {
+            img: document.createElement("img"),
+            speed: 0,
+            X: canvas.width / 2,
+            Y: canvas.height / 2,
+            defimg: "icons/fortran.png"
         }
+        
+        fortran.img.src = "icons/fortran.png"
         context.beginPath()
         const heroImage = new Image()
         let heroLoaded = false
 
-        heroImage.onload = () => {heroLoaded = true}
-    
-        heroImage.src = "icons/fortran.png"
+        function hero(character){
+            character.img.addEventListener("load", () => {
+            heroLoaded = true
+            console.log("Hero is loaded")
+            context.drawImage(character.img, character.X, character.Y)
+        }
+        )}
 
-        heroLoaded ? ctx.drawImage(heroImage, 200, 200) : null
+      
+
+        // function update(){
+        //     // canvas.clearRect(0, 0, canvas.width, canvas.height)
+        //     canvas.drawImage(heroImage, 200, 200)
+        // }
+
+        // update()
+
+
+        heroLoaded ? context.drawImage(heroImage, fortran.X, fortran.Y) : null
+        
         context.closePath()
         
         //4
         context.beginPath()
-        context.font = "20px Inter"
+        context.font = "44px Inter"
         context.fillStyle = "#3C429B"
-        context.fillText("Game Paused", 200, 200)
+        context.fillText("Game Paused", 280, 290)
         context.closePath()
 
         function gamePaused(){
@@ -249,10 +276,10 @@
             console.log(gameconfig.gamePaused)
         }
 
-        document.addEventListener("keydown", event => {
+        document.addEventListener("keydown", () => {
             event.code === "KeyP" ? gamePaused() : null
         })
-        
+        hero(fortran)
         </script>
 </body>
 </html>

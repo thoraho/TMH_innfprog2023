@@ -16,7 +16,7 @@
             --green: #006b5e;
             --gray: #4b4737;
         }
-
+            
         body {
             background: var(--darkblue);
             color: white;
@@ -216,7 +216,6 @@
             })
 
         })
-        //oppgave 8: checkWinner-funksjon
         // Function to run when we click a player sign button ( called play() ).
         // We pass one parameter: "playerSign", which is a text string indicating
         // the player's choice (rock, paper or scissors)
@@ -269,56 +268,60 @@
                 } else if(
                     playerSign === "paper" && computerSign === "rock" ||
                     playerSign === "rock" && computerSign === "nerfgun" ||
+                    playerSign === "rock" && computerSign === "scissors" ||
                     playerSign === "scissors" && computerSign === "paper" ||
-                    playerSign === "nerfgun" && computerSign === "scissors") {
+                    playerSign === "nerfgun" && computerSign === "scissors"||
+                    playerSign === "nerfgun" && computerSign === "paper"){
                         return "player"
                     } else {
                         return "computer"
                     }
                 }
-                checkWinner(playerSign, computerSign)
-            // const winner = checkWinner(playerSign, computerSign)
-            //Now we have checks to set the winner. Let's write it to the website.
-            //Now you know the drill: show #winner by display: block and fill it with HTML:
-            const winnerDiv = document.getElementById("winner")
-            winnerDiv.style.display = "block"
-            setTimeout(showWinner, 1000)
-            //if-test for å styre tellere for hvem som vinner og legge på backgroundColor
-            function showWinner(){
-            if (checkWinner(playerSign, computerSign) === "player") {
-                playerW = playerW + 1
-                winnerDiv.style.backgroundColor = "#FFD700"
-                winnerDiv.innerHTML = `You win!`
-            } else if (checkWinner(playerSign, computerSign) === "computer") {
-                cpuW = cpuW + 1
-                winnerDiv.style.backgroundColor = "red"
-                winnerDiv.innerHTML = `You lost..`
-            } else {
-                draw = draw + 1
-                winnerDiv.style.backgroundColor = "green"
-                winnerDiv.innerHTML = `It's a tie!`
-            }
-        }
 
-            document.getElementById("playerW").innerHTML = playerW
-            document.getElementById("cpuW").innerHTML = cpuW
-            document.getElementById("draw").innerHTML = draw
+                // const winner = checkWinner(playerSign, computerSign)
+                //Now we have checks to set the winner. Let's write it to the website.
+                //Now you know the drill: show #winner by display: block and fill it with HTML:
+                const winnerDiv = document.getElementById("winner")
+                winnerDiv.style.display = "block"
+                //funksjon med if-test for å styre tellere for hvem som vinner og endre backgroundColor
+                //Skriver ut de forskjellige resultatene til deres respektive plasseringer
+                setTimeout(showWinner, 1000)
 
-            //kommenterer ut gammel vinner-tekst
-            // winnerDiv.innerHTML = "The winner is " + winner
-            /* OPPGAVE 2.2: FORKLAR HVA SOM SKJER PÅ LINJE 254
-             * Endrer CSS-displayverdien for HTML-elementet med id="winner" til display: block;
-             */
+                function showWinner(){
+                    if (checkWinner(playerSign, computerSign) === "player"){
+                        playerW++
+                        winnerDiv.style.backgroundColor = "#FFD700"
+                        winnerDiv.innerHTML = `You win!`
+                        document.getElementById("playerW").innerHTML = playerW
+                    } else if (checkWinner(playerSign, computerSign) === "computer"){
+                        cpuW++
+                        winnerDiv.style.backgroundColor = null
+                        winnerDiv.innerHTML = `You lost..`
+                        document.getElementById("cpuW").innerHTML = cpuW
+                    } else{
+                        draw++
+                        winnerDiv.style.backgroundColor = null
+                        winnerDiv.innerHTML = `It's a tie!`
+                        document.getElementById("draw").innerHTML = draw
+                    }
+                }
+                
+                //kommenterer ut gammel vinner-tekst
+                // winnerDiv.innerHTML = "The winner is " + winner
 
-            //Now, lastly, let's update the counter on how many games we have played:
-            counter = counter + 1
-
-            if (counter > 0) {
-                const counter = document.getElementById("counter")
-                counter.style.color = "var(--lightblue)"
-            }
-
-            document.getElementById("counter").innerHTML = counter
+                /* OPPGAVE 2.2: FORKLAR HVA SOM SKJER PÅ LINJE 254
+                * Endrer CSS-displayverdien for HTML-elementet med id="winner" til display: block;
+                */
+               
+               //Now, lastly, let's update the counter on how many games we have played:
+               counter++
+               
+               if (counter > 0){
+                   const counter = document.getElementById("counter")
+                   counter.style.color = "var(--lightblue)"
+                }
+                
+                document.getElementById("counter").innerHTML = counter
             /* OPPGAVE 2.3: FORKLAR HVA SOM SKJER PÅ LINJE 262
             * Endrer verdien i variabelen let counter til å legge til en hver gang function play kalles.
             */
@@ -330,7 +333,7 @@
 
         //Now, we need to make a function that restarts the game. This means setting all 
         //variables and values back to their initial state, so nothing is selected as we start:
-        function restartGame() {
+        function restartGame(){
             //Firstly, we'll reset the winner:
             winner = ""
             playerW = 0
@@ -361,3 +364,4 @@
 <!-- //rettet skrivefeil fra unction til function --linje 292 -->
 <!-- //rettet skrivefeil fra buttonss til buttons -- linje 167 -->
 <!-- //Rettet capsfeil fra getElementByID til getElementById -- linje 208  -->
+<!-- //Rettet feil som gjør at computer aldri velger siste i array (signs.length - 1) til (signs.length)-->
