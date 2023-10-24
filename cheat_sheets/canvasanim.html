@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas-animation</title>
+    <style>
+        body{
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingarea"></canvas>
+
+    <script>
+        const canvas = document.getElementById("drawingarea")
+        canvas.width = 800
+        canvas.height = 600
+        const ctx = canvas.getContext("2d")
+
+        //lager en innlastingskontroll
+        let heroLoaded = false
+        //sjekker at bildet er lastet i nettleser
+        //lager et bildeobjekt
+        const heroImage = new Image()
+        //angi hvilken bildefil som skal tegnes i canvas
+        heroImage.src = "superhero.png"
+        
+        heroImage.onload = () => {
+            heroLoaded = true
+            //tegne bilde til canvas
+            /* ctx.drawImage(heroImage, 100, 100) */
+        }
+        
+        heroLoaded ? console.log("bildeobjekt er lastet") : console.log("bildet er ikke lastet")
+
+        //Definerer requestAnimastionFrame for ulike nettlesere:
+        requestAnimationFrame = window.requestAnimationFrame || 
+        window.webkitRequestAnimationFrame ||
+        window.msRequestAnimationFrame || 
+        window.mozRequestAnimationFrame
+        
+        //Lage en funksjon for tilfeldig valgte verdier
+
+        function randomMinMax(min, max){
+            return Math.floor(Math.random() * (max - min + 1))
+        }
+        //La oss lage en X-counter
+        let xCounter = randomMinMax(0, canvas.width - 200)
+        let yCounter = randomMinMax(canvas.height / 2, canvas.height)
+        function renderFrames(){
+            //tømmer hele canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            //Tegne elementene i én bilderamme
+            ctx.drawImage(heroImage, xCounter, yCounter)
+            //Flytte bildet én piksel mot høyre
+            xCounter = xCounter + 5
+            yCounter = yCounter - 5
+            //Kjøre en ny bilderamme
+            requestAnimationFrame(renderFrames)
+        }
+        //Starte animasjon
+/*         document.addEventListener("keydown", () => {
+            event.code === "KeyP" ? renderFrames() : null
+        }) */
+        renderFrames()
+
+    </script>
+</body>
+</html>

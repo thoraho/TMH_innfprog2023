@@ -262,16 +262,16 @@
             // This means if players sign beat computer sign, player wins. Lets try:
             //Oppgave 7, 8 og bonus1:
             
-            function checkWinner(playerSign, computerSign){
-                if(playerSign === computerSign) {
+            function checkWinner(playerSelection, computerSelection){
+                if(playerSelection === computerSelection) {
                     return "undecided"
                 } else if(
-                    playerSign === "paper" && computerSign === "rock" ||
-                    playerSign === "rock" && computerSign === "nerfgun" ||
-                    playerSign === "rock" && computerSign === "scissors" ||
-                    playerSign === "scissors" && computerSign === "paper" ||
-                    playerSign === "nerfgun" && computerSign === "scissors"||
-                    playerSign === "nerfgun" && computerSign === "paper"){
+                    playerSelection === "paper" && computerSelection === "rock" ||
+                    playerSelection === "rock" && computerSelection === "nerfgun" ||
+                    playerSelection === "rock" && computerSelection === "scissors" ||
+                    playerSelection === "scissors" && computerSelection === "paper" ||
+                    playerSelection === "nerfgun" && computerSelection === "scissors"||
+                    playerSelection === "nerfgun" && computerSelection === "paper"){
                         return "player"
                     } else {
                         return "computer"
@@ -283,6 +283,10 @@
                 //Now you know the drill: show #winner by display: block and fill it with HTML:
                 const winnerDiv = document.getElementById("winner")
                 winnerDiv.style.display = "block"
+                /* OPPGAVE 2.2: FORKLAR HVA SOM SKJER PÅ LINJE 254
+                * Endrer CSS-displayverdien for HTML-elementet med id="winner" til display: block;
+                */
+               
                 //funksjon med if-test for å styre tellere for hvem som vinner og endre backgroundColor
                 //Skriver ut de forskjellige resultatene til deres respektive plasseringer
                 setTimeout(showWinner, 1000)
@@ -309,9 +313,6 @@
                 //kommenterer ut gammel vinner-tekst
                 // winnerDiv.innerHTML = "The winner is " + winner
 
-                /* OPPGAVE 2.2: FORKLAR HVA SOM SKJER PÅ LINJE 254
-                * Endrer CSS-displayverdien for HTML-elementet med id="winner" til display: block;
-                */
                
                //Now, lastly, let's update the counter on how many games we have played:
                counter++
@@ -357,7 +358,6 @@
         }
     </script>
 </body>
-
 </html>
 <!-- OPPGAVE1 -->
 <!-- rettet skrivefeil i onClick for ('rock') fra playy til play -- linje 132 -->
