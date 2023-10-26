@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas-animation</title>
+    <style>
+        body{
+            font-family: 'inter';
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        p{
+            position: absolute;
+            font-size: 2rem;
+            top: 10px;
+        }
+
+        canvas{
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingarea"></canvas>
+    <p>Du har samlet <span id="count">0</span> firkanter!</p>
+
+    <script>
+        const canvas = document.getElementById("drawingarea")
+        canvas.width = 800
+        canvas.height = 600
+        const ctx = canvas.getContext("2d")
+
+        //Lager en teller
+        let counter = 0
+
+        //lager en innlastingskontroll
+        let heroLoaded = false
+        //sjekker at bildet er lastet i nettleser
+        //lager et bildeobjekt
+        const heroImage = new Image()
+        //angi hvilken bildefil som skal tegnes i canvas
+        heroImage.src = "superhero.png"
+        
+        heroImage.onload = () => {
+            heroLoaded = true
+            //tegne bilde til canvas
+            /* ctx.drawImage(heroImage, 100, 100) */
+        }
+
+        const hero = {
+            speed: 5,
+            normalSpeed: 5,
+            boostSpeed: 10,
+            x: canvas.width/2,
+            y: canvas.height/2,
+            width: 50,
+            height: 50
+        }
+
+        function randomMinMax(min, max){
+            return Math.floor(Math.random() * (max - min + 1))
+        }
+
+        const enemy = {
+            x: randomMinMax(50, canvas.width - 100),
+            y: randomMinMax(50, canvas.height - 100),
+            width: 50,
+            height: 50
+        }
+
+        //Definerer requestAnimastionFrame for ulike nettlesere:
+        requestAnimationFrame = window.requestAnimationFrame || 
+        window.webkitRequestAnimationFrame ||
+        window.msRequestAnimationFrame || 
+        window.mozRequestAnimationFrame
+        
+        //Lage en funksjon for tilfeldig valgte verdier
+
+
+        //La oss lage en X-counter
+        
+        let xCounter = randomMinMax(0, canvas.width - 200)
+        let yCounter = randomMinMax(canvas.height / 2, canvas.height)
+
+        //Lage state-variabler for retning
+        let left = false
+        let right = false
+        let up = false
+        let down = false
+        let boost = false
+
+        document.addEventListener("keydown", () =>{
+            if(event.code === "KeyA"){
+                left = true
+            } else if(event.code === "KeyD"){
+                right = true
+            } else if(event.code === "KeyW"){
+                up = true
+            } else if(event.code === "KeyS"){
+                down = true
+            } else if(event.code === "ShiftLeft"){
+                boost = true
+            }
+        })
+
+        document.addEventListener("keyup", () =>{
+            event.code === "KeyA" ? left = false : null
+            event.code === "KeyD" ? right = false : null
+            event.code === "KeyW" ? up = false : null
+            event.code === "KeyS" ? down = false : null
+            event.code === "ShiftLeft" ? boost = false : null
+        })
+
+
+
+        
+        function renderFrames(){
+            //tømmer hele canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            //Tegne fienden
+            ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height)
+            //Teste kollisjon mot høyre og venstre
+            hero.x + hero.width >= canvas.width ? right = false : null
+            hero.x === 0 ? left = false : null
+            
+            //Sjekke om helte er utenfor bunnen
+            hero.y >= canvas.height && down ? hero.y = -hero.height : null
+            //Sjekke om helten er utenfor toppen
+            hero.y + hero.height <= 0 && up ? hero.y = canvas.height : null
+            //Deaktivere boost når vi nesten når canvas-veggene
+            hero.x + hero.width > canvas.width - hero.boostSpeed ? hero.speed = hero.normalSpeed : null
+            
+            //Boost
+            boost ? hero.speed = hero.boostSpeed : hero.speed = hero.normalSpeed
+            //Tegne elementene i én bilderamme
+            ctx.drawImage(heroImage, hero.x, hero.y, hero.width, hero.height)
+            //Sjekk etter retningsendring
+            left === true ? hero.x = hero.x - hero.speed : null
+            right === true ? hero.x = hero.x + hero.speed : null
+            up === true ? hero.y = hero.y - hero.speed : null
+            down === true ? hero.y = hero.y + hero.speed : null
+            
+
+            //Sjekk etter kollisjon mellom helt og firkantfienden
+            if(
+                hero.x + hero.width > enemy.x &&
+                hero.x < enemy.x + enemy.width &&
+                hero.y + hero.height > enemy.y &&
+                hero.y < enemy.y + enemy.height
+            ){
+                counter++
+                document.getElementById("count").innerHTML = counter
+                enemy.x = randomMinMax(50, canvas.width - 100)
+                enemy.y = randomMinMax(50, canvas.height - 100)
+            }
+            //Kjøre en ny bilderamme
+            requestAnimationFrame(renderFrames)
+        }
+        //Starte animasjon
+/*         document.addEventListener("keydown", () => {
+            event.code === "KeyP" ? renderFrames() : null
+        }) */
+        
+        renderFrames()
+
+
+    </script>
+</body>
+</html>
