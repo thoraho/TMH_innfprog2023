@@ -222,37 +222,27 @@
 
         //3
         let fortran = {
-            img: document.createElement("img"),
             speed: 0,
-            X: canvas.width / 2,
-            Y: canvas.height / 2,
-            defimg: "icons/fortran.png"
+            x: canvas.width / 2,
+            y: canvas.height / 2,
         }
         
-        fortran.img.src = "icons/fortran.png"
-        context.beginPath()
+        heroImage.src = "icons/fortran.png"
         const heroImage = new Image()
         let heroLoaded = false
 
-        function hero(character){
-            character.img.addEventListener("load", () => {
-            heroLoaded = true
-            console.log("Hero is loaded")
-            context.drawImage(character.img, character.X, character.Y)
-        }
-        )}
-
       
 
-        // function update(){
-        //     // canvas.clearRect(0, 0, canvas.width, canvas.height)
-        //     canvas.drawImage(heroImage, 200, 200)
-        // }
+        function update(){
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            context.drawImage(heroImage, canvas.width/2, canvas.height/2)
+            requestAnimationFrame(update)
+        }
 
-        // update()
+        update()
 
 
-        heroLoaded ? context.drawImage(heroImage, fortran.X, fortran.Y) : null
+        // heroLoaded ? context.drawImage(heroImage, fortran.x, fortran.x) : null
         
         context.closePath()
         

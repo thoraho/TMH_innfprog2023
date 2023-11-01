@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p>Oppgave1:<input type="number" id="oppgave1"></p>
+    <p>Oppgave2:<input type="number" id="oppgave2"></p>
+    <p>Oppgave3:<input type="number" id="oppgave3"></p>
+    <button onclick="calculate()">Regn ut karakter</button>
+
+    <p id="result">Resultat: </p>
+    <p id="karakter"></p>
+
+    <script>
+    0.2 * (2 / 10 * 100)
+
+    function calculate(){
+        const oppgave1 = document.getElementById("oppgave1").value
+        const oppgave2 = document.getElementById("oppgave2").value
+        const oppgave3 = document.getElementById("oppgave3").value
+
+        console.log(oppgave1, oppgave2, oppgave3)
+
+        const totalPercent = (0.2 * (oppgave1 / 10 * 100)) + (0.3 * (oppgave2 / 12 * 100)) + (0.5 * (oppgave3 / 18 * 100))
+        console.log(totalPercent)
+
+        
+        let grade = "F"
+        
+        totalPercent >= 25 && totalPercent < 45 ? grade = "E" : null
+        totalPercent >= 45 && totalPercent < 69 ? grade = "D" : null
+        totalPercent >= 69 && totalPercent < 89 ? grade = "C" : null
+        totalPercent >= 89 && totalPercent < 100 ? grade = "B" : null
+        totalPercent === 100 ? grade = "A" : null
+        
+        document.getElementById("result").innerHTML = totalPercent.toFixed(2) + "%, som gir karakteren " + grade
+
+    }
+    </script>
+</body>
+</html>
