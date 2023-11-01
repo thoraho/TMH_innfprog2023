@@ -123,48 +123,6 @@
         function updateSingleStaticUI(collectID, value){
             document.getElementById(collectID).innerHTML = value
         }
-
-        //TODO: print notebook info to HTML
-
-        // document.getElementById("variables").innerHTML = `${notebook.variables}`
-        // document.getElementById("arrays").innerHTML = `${notebook.arrays}`
-        // document.getElementById("loops").innerHTML = `${notebook.loops}`
-        // document.getElementById("functions").innerHTML = `${notebook.functions}`
-
-
-       
-        
-
-        //TODO: print playerinfo to HTML
-        
-
-        //(BONUS) TODO: function for all prints
-/* 
-        function updateStaticUI(){
-            if(gameconfig.player == ""){
-                document.getElementById("playerName").innerHTML = `Waiting for player`
-            } else{
-                document.getElementById("playerName").innerHTML = `${gameconfig.player}`
-            }
-
-            document.getElementById("energy").innerHTML = `${gameconfig.energy}`
-            document.getElementById("points").innerHTML = `${gameconfig.points}`
-            document.getElementById("duration").innerHTML = `${gameconfig.duration}`
-
-            document.getElementById("variables").innerHTML = `${notebook.variables}`
-            document.getElementById("arrays").innerHTML = `${notebook.arrays}`
-            document.getElementById("loops").innerHTML = `${notebook.loops}`
-            document.getElementById("functions").innerHTML = `${notebook.functions}`
-            
-            document.getElementById("notebookItems").innerHTML = ntbItems
-            
-            updateStaticUI()
-        } */
-
-
-        //workshop2
-        
-        
         //legger til knapper og elementer i variabler og legger addEventListener på knappene
         
         
@@ -177,7 +135,6 @@
         const infoBtn = document.getElementById("infoToggler")
         
         infoBtn.addEventListener("click", () => toggleSelection(infoPage, noteBookPage))
-
 
         // oppdatert function som tar imot parametere showElement og hideElement for å skjule og vise notebook og info
         function toggleSelection(showElement, hideElement){
@@ -203,69 +160,91 @@
 
         //workshop3
         //1
+        //Starte Canvas
         const canvas = document.getElementById("drawingarea")
         canvas.width = 800;
         canvas.height = 600;
         const context = canvas.getContext("2d")
-        //2
-        context.beginPath()
-        context.fillStyle = "#ffffff"
-        context.fillRect(650, 575, 150, 25)
-        context.fill()
-        context.closePath()
 
-        context.beginPath()
-        context.font = "16px Inter"
-        context.fillStyle = "#3c429b"
-        context.fillText("Press P to Pause", 660, 593)
-        context.closePath()
 
         //3
-        let fortran = {
-            speed: 0,
+        //Klargjør helten for tegning
+        //Variabel som holder på objekt med keys for helten
+        const fortran = {
+            speed: 5,
             x: canvas.width / 2,
-            y: canvas.height / 2,
+            y: canvas.height / 2
         }
-        
-        heroImage.src = "icons/fortran.png"
-        const heroImage = new Image()
+
         let heroLoaded = false
+        const heroImage = new Image()
 
-      
+        heroImage.src = "icons/fortran.png"
 
-        function update(){
-            context.clearRect(0, 0, canvas.width, canvas.height)
-            context.drawImage(heroImage, canvas.width/2, canvas.height/2)
-            requestAnimationFrame(update)
+        heroImage.onload = () =>{
+            heroLoaded = true
         }
 
-        update()
+        //Klargjør animationFrame for alle(ish) nettlesere
+        requestAnimationFrame = window.requestAnimationFrame || 
+        window.webkitRequestAnimationFrame ||
+        window.msRequestAnimationFrame || 
+        window.mozRequestAnimationFrame
 
 
-        // heroLoaded ? context.drawImage(heroImage, fortran.x, fortran.x) : null
-        
-        context.closePath()
-        
-        //4
-        context.beginPath()
-        context.font = "44px Inter"
-        context.fillStyle = "#3C429B"
-        context.fillText("Game Paused", 280, 290)
-        context.closePath()
+        //Booleans for retning
+        let left = false
+        let right = false
+        let up = false
+        let down = false
 
-        function gamePaused(){
-            if(gameconfig.gamePaused === true){
-                gameconfig.gamePaused = false
-            } else{
-                gameconfig.gamePaused = true
-            }
-            console.log(gameconfig.gamePaused)
-        }
-
+        //EventListeners for tastetrykk "keydown" og "keyup"
         document.addEventListener("keydown", () => {
-            event.code === "KeyP" ? gamePaused() : null
+            event.code === "KeyA" ? left = true : null
+            event.code === "KeyD" ? right = true : null
+            event.code === "KeyW" ? up = true : null
+            event.code === "KeyS" ? down = true : null
+
         })
-        hero(fortran)
+
+        document.addEventListener("keyup", () => {
+            event.code === "KeyA" ? left = false : null
+            event.code === "KeyD" ? right = false : null
+            event.code === "KeyW" ? up = false : null
+            event.code === "KeyS" ? down = false : null
+        })
+
+        //Tegne ut bildet av og animere helten
+        function renderFrames(){
+            context.clearRect(0, 0, canvas.width, canvas.height)
+            context.drawImage(heroImage, fortran.x, fortran.y)
+
+            left === true ? fortran.x -=5 : null
+            right === true ? fortran.x += 5 : null
+            up === true ? fortran.y -= 5 : null
+            down === true ? fortran.y += 5 : null
+
+
+        //2
+        //Tegne rektangel som skal holde på pausetekst
+            context.beginPath()
+            context.fillStyle = "#ffffff"
+            context.fillRect(650, 575, 150, 25)
+            context.fill()
+            //Tegne ut pausetekst
+            context.font = "16px Inter"
+            context.fillStyle = "#3c429b"
+            context.fillText("Press P to Pause", 660, 593)
+            requestAnimationFrame(renderFrames)
+        }
+
+
+        document.addEventListener("keydown", () =>{
+            event.code === "KeyR" ? renderFrames() : null
+        })
+        
+        context.closePath()
+        
         </script>
 </body>
 </html>
