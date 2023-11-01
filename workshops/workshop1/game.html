@@ -165,7 +165,17 @@
         canvas.width = 800;
         canvas.height = 600;
         const context = canvas.getContext("2d")
-
+        //2
+        //Tegne rektangel som skal holde på pausetekst
+        context.beginPath()
+        context.fillStyle = "#ffffff"
+        context.fillRect(650, 575, 150, 25)
+        context.fill()
+        
+        //Tegne ut pausetekst
+        context.font = "16px Inter"
+        context.fillStyle = "#3c429b"
+        context.fillText("Press P to Pause", 660, 593)
 
         //3
         //Klargjør helten for tegning
@@ -191,7 +201,6 @@
         window.msRequestAnimationFrame || 
         window.mozRequestAnimationFrame
 
-
         //Booleans for retning
         let left = false
         let right = false
@@ -204,7 +213,6 @@
             event.code === "KeyD" ? right = true : null
             event.code === "KeyW" ? up = true : null
             event.code === "KeyS" ? down = true : null
-
         })
 
         document.addEventListener("keyup", () => {
@@ -214,7 +222,7 @@
             event.code === "KeyS" ? down = false : null
         })
 
-        //Tegne ut bildet av og animere helten
+        //Tegne ut bildet av og animere helten basert på tastetrykk
         function renderFrames(){
             context.clearRect(0, 0, canvas.width, canvas.height)
             context.drawImage(heroImage, fortran.x, fortran.y)
@@ -224,17 +232,6 @@
             up === true ? fortran.y -= 5 : null
             down === true ? fortran.y += 5 : null
 
-
-        //2
-        //Tegne rektangel som skal holde på pausetekst
-            context.beginPath()
-            context.fillStyle = "#ffffff"
-            context.fillRect(650, 575, 150, 25)
-            context.fill()
-            //Tegne ut pausetekst
-            context.font = "16px Inter"
-            context.fillStyle = "#3c429b"
-            context.fillText("Press P to Pause", 660, 593)
             requestAnimationFrame(renderFrames)
         }
 
