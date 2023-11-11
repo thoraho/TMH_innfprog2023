@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THE PONG - Canvasgame</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
         body{
-            font-family: 'inter';
+            font-family: 'inter', sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -26,12 +27,17 @@
         #scoreboard{
             display: flex;
             justify-content: space-evenly;
-            align-items: baseline;
+            align-items: center;
         }
 
         #scoreboard h1{
-            font-size: 40px;
+            font-size: 3rem;
             font-weight: 900;
+            letter-spacing: 25px;
+        }
+
+        #scoreboard p{
+            font-size: 2rem;
         }
 
         #p1points, #p2points{
@@ -52,9 +58,9 @@
 </head>
 <body>
     <section id="scoreboard">
-        <p>Player 1: <span id="p1points">0</span></p>
+        <p>Player 1: <br><span id="p1points">0</span></p>
         <h1>THE PONG</h1>
-        <p>Player 2: <span id="p2points">0</span></p>
+        <p>Player 2: <br><span id="p2points">0</span></p>
     </section>
     <h2 id="winMessage">P1 WINS!</h2>
     <canvas id="drawingarea"></canvas>
@@ -87,10 +93,11 @@
             p2y: canvas.height / 2 - 100,
             width: 20,
             height: 200,
-
+            /* retningsbooleans */
+            /* player1 */
             p1up: false,
             p1down: false,
-
+            /* player2 */
             p2up: false,
             p2down: false
         }
@@ -125,10 +132,8 @@
         })
 
         /* startskjerm */
-        ctx.font = "900 100px Inter"
-        ctx.fillText("THE PONG", canvas.width / 2 - 270, canvas.height / 2)
-        ctx.font = "400 61px Inter"
-        ctx.fillText("Press P to play", canvas.width / 2 - 220, canvas.height / 2 + 60)
+        ctx.font = "900 100px sans-serif"
+        ctx.fillText("Press P to play", canvas.width / 2 - 380, canvas.height / 2 + 60)
 
 
         function renderFrames(){
@@ -162,6 +167,8 @@
                 configBall.xSpeed = -configBall.xSpeed
                 console.log("KOLLISJONP2")
             }
+
+            console.log(configBall.xSpeed)
 
 
             /* ballkollisjon med vegger */
@@ -199,7 +206,7 @@
 
             /* skriver ut vinnermelding og stopper spillet */
             if(score1 >= 10){
-            winMessage.innerHTML = "Player 1 wins!"
+            winMessage.innerHTML = `Player 1 wins!`
             winMessage.style.display = "flex"
             console.log("P1Win")
             configBall.xSpeed = 0
@@ -207,10 +214,10 @@
             configBall.x = canvas.width / 2
             configBall.y = canvas.height / 2
         }
-            if(score2 >= 10){
-            winMessage.innerHTML = "Player 2     wins!"
+            if(score2 >= 1){
+            winMessage.innerHTML = `Player 2 wins!`
             winMessage.style.display = "flex"
-            console.log("P1Win")
+            console.log("P2Win")
             configBall.xSpeed = 0
             configBall.ySpeed = 0
             configBall.x = canvas.width / 2
