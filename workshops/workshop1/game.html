@@ -17,8 +17,8 @@
     <header>
         <section id="player">
             <ul>
-                <li><img src="icons/shield.svg"> <span id="playerName">Marius</span></li>
-                <li><img src="icons/energydrink.svg" title="energy"> <span id="energy">3</span></li>
+                <li><img src="icons/shield.svg"> <span id="playerName"></span></li>
+                <li><img src="icons/energydrink.svg" title="energy"> <span id="energy"></span></li>
                 <li><img src="icons/notebook.svg"> <span id="notebookItems">0</span></li>
                 <li><img src="icons/solution.svg"> <span id="points">0</span> poeng</li>
                 <li><img src="icons/clock.svg"> <span id="duration">0</span></li>
@@ -31,7 +31,7 @@
         </nav>
     </header>
     <main>
-        <section id="notebook" class="hideable">
+        <section id="notebook" class="hidden hideable">
             <div id="notebook-page">
                 
                 <h2>Notater</h2>
@@ -71,18 +71,31 @@
                 <p>Gå på en oppgave når denne dukker opp for å løse en oppgave for å score poeng. Du får 10 poeng for å løse en oppgave, 1 poeng for hvert konsept du samler.</p>
             </div>
         </section>
-        <canvas id="drawingarea"></canvas>
+        <canvas id="gamearea"></canvas>
     </main>
     <script>
+        const canvas = document.getElementById("gamearea")
+        canvas.width = 800
+        canvas.height = 600
+        const ctx = canvas.getContext("2d")
         //PREPARE GAME CONFIG AND VARIABLES
         //TODO: config
         let gameconfig = {
             player: "",
             energy: 10,
-            points: 88,
-            duration: 17,
-            gamePaused: true
+            points: 10,
+            duration: 0,
+            gameState: "active"
         }
+
+
+
+        setInterval(function(){
+            if(gameconfig.gameState === "active"){
+            gameconfig.duration++
+            updateSingleStaticUI("duration", gameconfig.duration)
+        }
+        }, 1000)
 
         // if(gameconfig.player === ""){
         // document.getElementById("playerName").innerHTML = `Waiting for player`
@@ -100,29 +113,36 @@
             loops: 6,
             functions: 8
         }
+        function randomMinMax(min, max){
+            return Math.floor(Math.random() * (max - min + 1) + min)
+        }
         
         let ntbItems = notebook.variables + notebook.arrays + notebook.loops + notebook.functions
 
 
         //5
         //funksjon for å oppdatere config(playerName, energy)
-        function updateConfigValue(configType, value){
-            configType === "energy" ? gameconfig.energy = gameconfig.energy + value : null
-            configType === "points" ? gameconfig.points = gameconfig.points + value : null
-            configType === "duration" ? gameconfig.duration = gameconfig.duration + value : null
-            configType === "variables" ? notebook.variables = notebook.variables + value : null
-            configType === "arrays" ? notebook.arrays = notebook.arrays + value : null
-            configType === "loops" ? notebook.loops = notebook.loops + value : null
-            configType === "functions" ? notebook.functions = notebook.functions + value : null
-            }
+        function updateStaticUI(){
+            document.getElementById("energy").innerHTML = gameconfig.energy
+            document.getElementById("points").innerHTML = gameconfig.points
+            document.getElementById("duration").innerHTML = gameconfig.duration
+            gameconfig.player === "" ? document.getElementById("playerName").innerHTML = "Waiting for player" : document.getElementById("playerName").innerHTML = gameconfig.player
 
-            updateConfigValue("energy", 1)
+            document.getElementById("variables").innerHTML = notebook.variables
+            document.getElementById("arrays").innerHTML = notebook.arrays
+            document.getElementById("loops").innerHTML = notebook.loops
+            document.getElementById("functions").innerHTML = notebook.functions
+            }
         
         //4
         //Function for å oppdatere enkeltelementer
         function updateSingleStaticUI(collectID, value){
             document.getElementById(collectID).innerHTML = value
         }
+
+        updateStaticUI()
+
+        updateSingleStaticUI("playerName", "Thor")
         //legger til knapper og elementer i variabler og legger addEventListener på knappene
         
         
@@ -141,15 +161,21 @@
             if(showElement.classList.contains("hidden")){
                 showElement.classList.remove("hidden")
                 showElement.style.display = "block"
-
+                //Stoppe teller når infoskjermen er åpen
+                if(showElement === infoPage){
+                    gameconfig.gameState = "reading"
+                    console.log(gameconfig.gameState)
+                }
                 if(hideElement.style.display === "block"){
                     hideElement.style.display = "none"
                     hideElement.classList.add("hidden")
                 }
-
             } else{
                 showElement.classList.add("hidden")
                 showElement.style.display = "none"
+                if(showElement === infoPage){
+                    gameconfig.gameState = "active"
+                }
             }
         }
         //EventListeners for tastetrykk
@@ -158,90 +184,152 @@
             event.code === "KeyI" ? toggleSelection(infoPage, noteBookPage) : null
         })
 
-        //workshop3
-        //1
-        //Starte Canvas
-        const canvas = document.getElementById("drawingarea")
-        canvas.width = 800;
-        canvas.height = 600;
-        const context = canvas.getContext("2d")
-        //2
-        //Tegne rektangel som skal holde på pausetekst
-        context.beginPath()
-        context.fillStyle = "#ffffff"
-        context.fillRect(650, 575, 150, 25)
-        context.fill()
+        //WS3, Oppg2: Tegne pause-melding
+        function pauseText(text) {
+            ctx.fillStyle = "white"
+            ctx.fillRect(canvas.width - 200, canvas.height - 30, 200, 30)
+            ctx.fillStyle = "#3c429b"
+            ctx.font = "16px Arial"
+            ctx.fillText(text, canvas.width - 195, canvas.height - 10)
+        }
         
-        //Tegne ut pausetekst
-        context.font = "16px Inter"
-        context.fillStyle = "#3c429b"
-        context.fillText("Press P to Pause", 660, 593)
-
-        //3
-        //Klargjør helten for tegning
-        //Variabel som holder på objekt med keys for helten
+        //WS3, Oppg 3: Opptegning av Fortran
         const fortran = {
             speed: 5,
-            x: canvas.width / 2,
-            y: canvas.height / 2
+            x: canvas.width / 2 - 20,
+            y: canvas.height / 2 - 40,
+            width: 40,
+            height: 80,
+            left: false,
+            right: false,
+            up: false,
+            down: false
         }
 
-        let heroLoaded = false
-        const heroImage = new Image()
-
-        heroImage.src = "icons/fortran.png"
-
-        heroImage.onload = () =>{
-            heroLoaded = true
+        
+        const fortranImage = new Image()
+        fortranImage.src = "icons/fortran.png"
+        let fortranLoaded = false
+        fortranImage.onload = () => {
+            fortranLoaded = true
         }
 
-        //Klargjør animationFrame for alle(ish) nettlesere
+        //WS3, Oppg 5: Liste med elementtyper:
+        const itemTypes = ["variable", "array", "loop", "function", "bug", "energydrink"]
+        const randomItem = itemTypes[Math.floor(Math.random() * itemTypes.length)]
+        console.log(randomItem)
+
+                //klargjør array med objekter for items
+                const items = [
+            {
+                type: itemTypes[Math.floor(Math.random() * itemTypes.length)],
+                x: randomMinMax(10, canvas.width - 60),
+                y: randomMinMax(10, canvas.height - 60),
+                lifetime: randomMinMax(4, 10)
+            },
+            {
+                type: itemTypes[Math.floor(Math.random() * itemTypes.length)],
+                x: randomMinMax(10, canvas.width - 60),
+                y: randomMinMax(10, canvas.height - 60),
+                lifetime: randomMinMax(4, 10)
+            },
+            {
+                type: itemTypes[Math.floor(Math.random() * itemTypes.length)],
+                x: randomMinMax(10, canvas.width - 60),
+                y: randomMinMax(10, canvas.height - 60),
+                lifetime: randomMinMax(4, 9)
+            }
+        ]
+
+        console.log(items)
+
+        //WS3, Oppg 5: Funksjon for å tegne et element
+        function drawItem(type, x, y, lifetime) {
+            const itemImage = new Image()
+            itemImage.src = "icons/" + type + ".svg"
+            ctx.drawImage(itemImage, x, y)
+            //Lage sekundtellersirkel
+            ctx.beginPath()
+            ctx.arc(x+5, y+5, 10, 0, 2 * Math.PI)
+            ctx.fillStyle = "red"
+            ctx.fill()
+            ctx.font = "12px Verdana"
+            ctx.fillStyle = "white"
+            ctx.fillText(lifetime, x+1, y+8)
+            ctx.closePath()
+        }
+
+        document.addEventListener("keydown", () =>{
+            event.code === "KeyA" ? fortran.left = true : null
+            event.code === "KeyD" ? fortran.right = true : null
+            event.code === "KeyW" ? fortran.up = true : null
+            event.code === "KeyS" ? fortran.down = true : null
+
+        })
+        document.addEventListener("keyup", () => {
+            event.code === "KeyA" ? fortran.left = false : null
+            event.code === "KeyD" ? fortran.right = false : null
+            event.code === "KeyW" ? fortran.up = false : null
+            event.code === "KeyS" ? fortran.down = false : null
+        })
+
+        function outOfBounds(){
+            fortran.y = canvas.height / 2
+            fortran.x = canvas.width / 2
+            gameconfig.energy--
+            updateSingleStaticUI("energy", gameconfig.energy)
+        }
+
+        //WS3: Oppg.3: RequestAnimationFrame
         requestAnimationFrame = window.requestAnimationFrame || 
-        window.webkitRequestAnimationFrame ||
-        window.msRequestAnimationFrame || 
+        window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || 
         window.mozRequestAnimationFrame
 
-        //Booleans for retning
-        let left = false
-        let right = false
-        let up = false
-        let down = false
+        function renderFrames() {
+            //Tømme frame
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            //WS3: Oppg 2: Tegn opp Fortran
+            fortranLoaded ? ctx.drawImage(fortranImage, fortran.x, fortran.y, fortran.width, fortran.height) : null
+            //WS3, Oppg 5: Tegn opp item
+            /* drawItem(randomItem, 100, 100) */
+            items.map(element => drawItem(element.type, element.x, element.y, element.lifetime))
+            //WS3, Oppg 3: Test: sjekker om spillet er pauset:
+            if(gameconfig.gameState === "Paused") {
+                console.log("Spillet er pauset")
+                pauseText("Press P to unpause")
+                //Skriv ut PAUSED til Canvas
+                ctx.font = "80px Arial"
+                ctx.fillStyle = "green"
+                ctx.fillText("Paused", 270, 300)
+            } else {
+                pauseText("Press P to pause")
+                //kollisjon
+                if(fortran.y <= 0 - (fortran.height / 2)){
+                    outOfBounds()
+                }
+                if(fortran.y >= canvas.heigth + fortran.height){
+                    outOfBounds()
+                }
 
-        //EventListeners for tastetrykk "keydown" og "keyup"
-        document.addEventListener("keydown", () => {
-            event.code === "KeyA" ? left = true : null
-            event.code === "KeyD" ? right = true : null
-            event.code === "KeyW" ? up = true : null
-            event.code === "KeyS" ? down = true : null
-        })
+                //bevege fortran
+                fortran.left ? fortran.x -= fortran.speed : null
+                fortran.right ? fortran.x += fortran.speed : null
+                fortran.up ? fortran.y -= fortran.speed : null
+                fortran.down ? fortran.y += fortran.speed : null
 
-        document.addEventListener("keyup", () => {
-            event.code === "KeyA" ? left = false : null
-            event.code === "KeyD" ? right = false : null
-            event.code === "KeyW" ? up = false : null
-            event.code === "KeyS" ? down = false : null
-        })
-
-        //Tegne ut bildet av og animere helten basert på tastetrykk
-        function renderFrames(){
-            context.clearRect(0, 0, canvas.width, canvas.height)
-            context.drawImage(heroImage, fortran.x, fortran.y)
-
-            left === true ? fortran.x -=5 : null
-            right === true ? fortran.x += 5 : null
-            up === true ? fortran.y -= 5 : null
-            down === true ? fortran.y += 5 : null
-
+                //oppdatere duration
+            }
+            //Kjør renderFrames på ny vha requestAnimationFrame
             requestAnimationFrame(renderFrames)
         }
 
 
-        document.addEventListener("keydown", () =>{
-            event.code === "KeyR" ? renderFrames() : null
-        })
-        
-        context.closePath()
-        
-        </script>
+
+        document.addEventListener("keydown", () => {
+            if(event.code === "KeyP"){
+                gameconfig.gameState === "active" ? gameconfig.gameState = "Paused" : gameconfig.gameState = "active"
+        }})
+        renderFrames()
+    </script>
 </body>
 </html>

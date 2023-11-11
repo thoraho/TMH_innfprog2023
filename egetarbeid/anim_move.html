@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egetarbeid - Canvasanimasjon</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            background-color: aqua;
+            position: absolute;
+            margin: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="drawingarea"></canvas>
+    <script>
+        const canvas = document.getElementById("drawingarea")
+        canvas.width = 800
+        canvas.height = 600
+        const ctx = canvas.getContext("2d")
+        
+        const config = {
+            speed: 5,
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            width: 100,
+            height: 100,
+            left: false 
+        }
+
+        const configBall = {
+            speed: 5,
+            x: canvas.width / 2,
+            y: canvas.height /2
+        }
+
+
+        let left = false
+        let right = false
+        let up = false
+        let down = false
+
+        document.addEventListener("keydown", () => {
+            event.code === "KeyW" ? up = true : null
+            event.code === "KeyS" ? down = true : null
+            event.code === "KeyA" ? left = true : null
+            event.code === "KeyD" ? right = true : null
+        })
+
+        document.addEventListener("keyup", () => {
+            event.code === "KeyW" ? up = false : null
+            event.code === "KeyS" ? down = false : null
+            event.code === "KeyA" ? left = false : null
+            event.code === "KeyD" ? right = false : null
+        })
+        function renderFrames(){
+            ctx.clearRect(0, 0, canvas.width, canvas.height)
+            ctx.fillStyle = "black"
+            ctx.fillRect(config.x - config.width / 2, config.y - config.height / 2, config.width, config.height)
+
+            /* kollisjon */
+
+            config.x === 0 + config.width / 2 ? left = false : null
+            config.x === canvas.width - config.width / 2 ? right = false : null
+            config.y === 0 + config.height / 2  ? up = false : null
+            config.y === canvas.height - config.height / 2 ? down = false : null
+
+            up ? config.y -= config.speed : null
+            down ? config.y+= config.speed : null
+            left ? config.x-= config.speed : null
+            right ? config.x+= config.speed : null
+            requestAnimationFrame(renderFrames)
+        }
+        renderFrames()
+    </script>
+</body>
+</html>
