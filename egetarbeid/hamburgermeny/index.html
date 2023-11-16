@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Burger-menu</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menuFlex">
+                <button id="burger">•••</button>
+                <ul id="burgerMenu" class="hidden">
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Store</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            
+        </nav>
+    </header>
+    <script>
+        const menu = document.getElementById("burgerMenu")
+        const menuBtn = document.getElementById("burger")
+
+        menuBtn.addEventListener("click", () =>{
+            if(menu.style.display === "none"){
+            menu.style.display = "flex"
+        } else if(menu.style.display != "flex" ){
+            menu.style.display = "none"
+        }
+        })
+    </script>
+</body>
+</html>

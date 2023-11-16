@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ettellerannet om siden"> 
     <title>THE PONG - Canvasgame</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
@@ -17,9 +18,10 @@
         canvas{
             display: flex;
             background-color: #fec465;
-            /* background-image: url(img/background.jpg); */
+            background-image: url(img/background2.jpg);
             background-position: center;
             background-size: cover;
+            border: 1rem black dashed;
             background-repeat: no-repeat;
             background-blend-mode: screen;
         }
@@ -33,11 +35,10 @@
         #scoreboard h1{
             font-size: 3rem;
             font-weight: 900;
-            letter-spacing: 25px;
         }
 
         #scoreboard p{
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
         #p1points, #p2points{
@@ -52,22 +53,22 @@
             font-weight: 900;
             border: 3px solid black;
             padding: 1rem;
-
         }
+
     </style>
 </head>
 <body>
     <section id="scoreboard">
-        <p>Player 1: <br><span id="p1points">0</span></p>
         <h1>THE PONG</h1>
+        <p>Player 1: <br><span id="p1points">0</span></p>
         <p>Player 2: <br><span id="p2points">0</span></p>
     </section>
     <h2 id="winMessage">P1 WINS!</h2>
     <canvas id="drawingarea"></canvas>
     <script>
         const canvas = document.getElementById("drawingarea")
-        canvas.width = 1500
-        canvas.height = 600
+        canvas.width = 1200
+        canvas.height = 500
         const ctx = canvas.getContext("2d")
         
         let score1 = 0
@@ -76,14 +77,6 @@
         const scorePlayer1 = document.getElementById("p1points")
         const scorePlayer2 = document.getElementById("p2points")
         const winMessage = document.getElementById("winMessage")
-        
-        if(score1 > 2){
-            winMessage.style.display = "flex"
-            console.log("P1Win")
-            
-        }
-        console.log(winMessage)
-
 
         const config = {
             speed: 7.5,
@@ -93,7 +86,9 @@
             p2y: canvas.height / 2 - 100,
             width: 20,
             height: 200,
+
             /* retningsbooleans */
+
             /* player1 */
             p1up: false,
             p1down: false,
@@ -103,8 +98,8 @@
         }
 
         const configBall = {
-            ySpeed: 10,
-            xSpeed: 10,
+            ySpeed: 13,
+            xSpeed: 13,
             x: canvas.width / 2,
             y: canvas.height / 2,
             width: 20,
@@ -143,11 +138,13 @@
             ctx.fillRect(config.p2x, config.p2y, config.width, config.height)
             ctx.fillRect(configBall.x, configBall.y, configBall.width, configBall.height) 
 
+            
             /* ballbevegelse */
             configBall.y -= configBall.ySpeed
             configBall.x -= configBall.xSpeed
 
             /* kollisjon med paddles */
+            /* p1 */
             if(
                 configBall.x < config.p1x + config.width &&
                 configBall.x + configBall.width > config.p1x &&
@@ -157,7 +154,7 @@
                 configBall.xSpeed = -configBall.xSpeed
                 console.log("KOLLISJONP1")
             }
-
+            /* p2 */
             if(
                 configBall.x < config.p2x + config.width &&
                 configBall.x + configBall.width > config.p2x &&
@@ -205,7 +202,7 @@
 
 
             /* skriver ut vinnermelding og stopper spillet */
-            if(score1 >= 10){
+            if(score1 >= 5){
             winMessage.innerHTML = `Player 1 wins!`
             winMessage.style.display = "flex"
             console.log("P1Win")
@@ -214,7 +211,7 @@
             configBall.x = canvas.width / 2
             configBall.y = canvas.height / 2
         }
-            if(score2 >= 1){
+            if(score2 >= 5){   
             winMessage.innerHTML = `Player 2 wins!`
             winMessage.style.display = "flex"
             console.log("P2Win")
@@ -226,6 +223,7 @@
 
             requestAnimationFrame(renderFrames)
         }
+
     </script>
 </body>
 </html>
