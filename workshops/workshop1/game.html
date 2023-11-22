@@ -82,8 +82,8 @@
         //TODO: config
         let gameconfig = {
             player: "",
-            energy: 10,
-            points: 10,
+            energy: 1,
+            points: 0,
             duration: 0,
             gameState: "active"
         }
@@ -93,7 +93,12 @@
         setInterval(function(){
             if(gameconfig.gameState === "active"){
             gameconfig.duration++
+
             updateSingleStaticUI("duration", gameconfig.duration)
+            //WS5 Oppgave 1.3: Trekke fra levetid på alle elementer
+            items.map((element) => {
+                element.lifetime--
+            })
         }
         }, 1000)
 
@@ -108,16 +113,17 @@
 
         // TODO: notebook
         let notebook = {
-            variables: 2,
-            arrays: 3,
-            loops: 6,
-            functions: 8
+            variables: 0,
+            arrays: 0,
+            loops: 0,
+            functions: 0
         }
+
+
+
         function randomMinMax(min, max){
             return Math.floor(Math.random() * (max - min + 1) + min)
         }
-        
-        let ntbItems = notebook.variables + notebook.arrays + notebook.loops + notebook.functions
 
 
         //5
@@ -132,6 +138,8 @@
             document.getElementById("arrays").innerHTML = notebook.arrays
             document.getElementById("loops").innerHTML = notebook.loops
             document.getElementById("functions").innerHTML = notebook.functions
+            const totalItems = notebook.loops + notebook.arrays + notebook.functions + notebook.variables
+            document.getElementById("notebookItems").innerHTML = totalItems
             }
         
         //4
@@ -164,7 +172,6 @@
                 //Stoppe teller når infoskjermen er åpen
                 if(showElement === infoPage){
                     gameconfig.gameState = "reading"
-                    console.log(gameconfig.gameState)
                 }
                 if(hideElement.style.display === "block"){
                     hideElement.style.display = "none"
@@ -195,7 +202,7 @@
         
         //WS3, Oppg 3: Opptegning av Fortran
         const fortran = {
-            speed: 5,
+            speed: 7,
             x: canvas.width / 2 - 20,
             y: canvas.height / 2 - 40,
             width: 40,
@@ -206,7 +213,6 @@
             down: false
         }
 
-        
         const fortranImage = new Image()
         fortranImage.src = "icons/fortran.png"
         let fortranLoaded = false
@@ -217,37 +223,50 @@
         //WS3, Oppg 5: Liste med elementtyper:
         const itemTypes = ["variable", "array", "loop", "function", "bug", "energydrink"]
         const randomItem = itemTypes[Math.floor(Math.random() * itemTypes.length)]
-        console.log(randomItem)
 
-                //klargjør array med objekter for items
-                const items = [
-            {
-                type: itemTypes[Math.floor(Math.random() * itemTypes.length)],
-                x: randomMinMax(10, canvas.width - 60),
-                y: randomMinMax(10, canvas.height - 60),
-                lifetime: randomMinMax(4, 10)
-            },
-            {
-                type: itemTypes[Math.floor(Math.random() * itemTypes.length)],
-                x: randomMinMax(10, canvas.width - 60),
-                y: randomMinMax(10, canvas.height - 60),
-                lifetime: randomMinMax(4, 10)
-            },
-            {
-                type: itemTypes[Math.floor(Math.random() * itemTypes.length)],
-                x: randomMinMax(10, canvas.width - 60),
-                y: randomMinMax(10, canvas.height - 60),
-                lifetime: randomMinMax(4, 9)
-            }
-        ]
 
-        console.log(items)
+
+
+        //klargjør array med objekter for items
+        const items = []
+
+        //WS5. Funksjon for å dytte nytt element i arrayen
+        function pushItem(){
+            if(gameconfig.gameState === "active"){
+            const elementType = itemTypes[Math.floor(Math.random() * itemTypes.length)]
+                items.push({
+                type: elementType,
+                x: randomMinMax(10, canvas.width - 60),
+                y: elementType === "bug" ? canvas.height + 100 : randomMinMax(10, canvas.height - 60),
+                lifetime: randomMinMax(4, 10),
+                state: "active"
+            //active, inactive, bug: collided, !bug: collected
+            })
+        }
+    }
+
+        //W5 Oppg1. Lag mellom 2 og 5 elementer ved start av spillet
+        for(let itemCount = 1; itemCount <= randomMinMax(2, 5); itemCount++){
+            pushItem()
+        }
+
+        //WS5. oppgave 1. Rekursiv funksjon for å opprette elementer
+        function generateItem(){
+            pushItem()
+
+            setTimeout(generateItem, randomMinMax(2000, 6000))
+        }
+
+        generateItem()
+
 
         //WS3, Oppg 5: Funksjon for å tegne et element
         function drawItem(type, x, y, lifetime) {
             const itemImage = new Image()
             itemImage.src = "icons/" + type + ".svg"
             ctx.drawImage(itemImage, x, y)
+            
+            if(type !== "bug"){
             //Lage sekundtellersirkel
             ctx.beginPath()
             ctx.arc(x+5, y+5, 10, 0, 2 * Math.PI)
@@ -257,6 +276,7 @@
             ctx.fillStyle = "white"
             ctx.fillText(lifetime, x+1, y+8)
             ctx.closePath()
+        }
         }
 
         document.addEventListener("keydown", () =>{
@@ -288,11 +308,15 @@
         function renderFrames() {
             //Tømme frame
             ctx.clearRect(0, 0, canvas.width, canvas.height)
+            //WS5 oppg 3: Game Over
+            if(gameconfig.energy <= 0){
+                gameconfig.gameState = "gameOver"
+            }
+            
             //WS3: Oppg 2: Tegn opp Fortran
             fortranLoaded ? ctx.drawImage(fortranImage, fortran.x, fortran.y, fortran.width, fortran.height) : null
             //WS3, Oppg 5: Tegn opp item
             /* drawItem(randomItem, 100, 100) */
-            items.map(element => drawItem(element.type, element.x, element.y, element.lifetime))
             //WS3, Oppg 3: Test: sjekker om spillet er pauset:
             if(gameconfig.gameState === "Paused") {
                 console.log("Spillet er pauset")
@@ -301,13 +325,67 @@
                 ctx.font = "80px Arial"
                 ctx.fillStyle = "green"
                 ctx.fillText("Paused", 270, 300)
+            } else if(gameconfig.gameState === "gameOver"){
+                ctx.font = "80px Arial"
+                ctx.fillStyle = "yellow"
+                ctx.fillText("Game Over", 200, 300)
             } else {
+                items.map((element) => {
+                if(element.state === "active"){
+                    if(element.type === "bug"){
+                        element.y--
+                        console.log (element)
+                        
+                    } else {
+                        element.lifetime < 0 ? element.state = "lost" : null
+                        /* element.lifetime > 0 ? drawItem(element.type, element.x, element.y, element.lifetime) : null */
+                        drawItem(element.type, element.x, element.y, element.lifetime)
+                    }
+                    if(element.x + 50 > fortran.x &&
+                        element.x < fortran.x + fortran.width &&
+                        element.y + 50 > fortran.y &&
+                        element.y < fortran.y + fortran.height
+                    ) {
+                    console.log("Fortran har truffet " + element.type)
+                        //Hvis elementet skal plukkes opp, skal det forsvinne, legges til notatboka og gi poeng
+                        if(element.type !== "bug"){
+                            element.state = "collected"
+
+                            if(element.type === "variable"){
+                                notebook.variables++
+                                updateSingleStaticUI("variables", notebook.variables)
+                            }
+                            if(element.type === "loop"){
+                                notebook.loops++
+                                updateSingleStaticUI("loops", notebook.loops)
+                            }
+                            if(element.type === "function"){
+                                notebook.functions++
+                                updateSingleStaticUI("functions", notebook.functions)
+                            }
+                            if(element.type === "array"){
+                                notebook.arrays++
+                                updateSingleStaticUI("arrays", notebook.arrays)
+                            }
+                            if(element.type === "energydrink"){
+                                gameconfig.energy++
+                                updateSingleStaticUI("energy", gameconfig.energy)
+                            }
+
+                            gameconfig.points++
+                            updateSingleStaticUI("points", gameconfig.points)
+
+                        } else{
+                            gameconfig.energy--
+                            updateSingleStaticUI("energy", gameconfig.energy)
+                            element.state = "hit"
+                        }
+                    }
+                }
+                })
                 pauseText("Press P to pause")
                 //kollisjon
                 if(fortran.y <= 0 - (fortran.height / 2)){
-                    outOfBounds()
-                }
-                if(fortran.y >= canvas.heigth + fortran.height){
                     outOfBounds()
                 }
 
@@ -322,14 +400,13 @@
             //Kjør renderFrames på ny vha requestAnimationFrame
             requestAnimationFrame(renderFrames)
         }
-
-
-
         document.addEventListener("keydown", () => {
             if(event.code === "KeyP"){
                 gameconfig.gameState === "active" ? gameconfig.gameState = "Paused" : gameconfig.gameState = "active"
         }})
         renderFrames()
+
+
     </script>
 </body>
 </html>
